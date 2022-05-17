@@ -49,7 +49,7 @@ module data_ram_rw_tb;
 
 	initial begin
 	   wait(checkbits == 16'hAB60);
-		$display("Monitor: Instr_ram_rw WB Started");
+		$display("Monitor: Data_ram_rw WB Started");
 		wait(checkbits == 16'hAB61);
 		`ifdef GL
 	    	$display("Monitor: data_ram_rw WB (GL) PASSED------------------------------");
