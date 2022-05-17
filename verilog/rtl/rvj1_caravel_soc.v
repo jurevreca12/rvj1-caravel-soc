@@ -68,98 +68,71 @@ module rvj1_caravel_soc #(
     // IRQ
     output [2:0] irq
 );
-    wire clk;
-    wire rst;
+	///////////////////////////////////////////                                                                         
+    // LOCAL PARAMS                                                                                                     
+    ///////////////////////////////////////////                                                                         
+    localparam IRAM_BASE_ADDR        = 32'h3000_0000;                                                                   
+    localparam IRAM_ADDR_WIDTH_BYTES = $clog2(2048);                                                                    
+    localparam IRAM_ADDR_WIDTH_WORDS = IRAM_ADDR_WIDTH_BYTES - 2;                                                       
+                                                                                                                        
+    localparam DRAM_BASE_ADDR        = 32'h3000_4000;                                                                   
+    localparam DRAM_ADDR_WIDTH_BYTES = $clog2(1024);                                                                    
+    localparam DRAM_ADDR_WIDTH_WORDS = DRAM_ADDR_WIDTH_BYTES - 2;                                                       
+                                                                                                                        
+    ///////////////////////////////////////////                                                                         
+    // SIGNAL DEFINITIONS                                                                                               
+    ///////////////////////////////////////////   
+	wire iram_clk0, iram_csb0, iram_web0;                                                                               
+    wire [3:0] iram_wmask0;                                                                                             
+    wire [IRAM_ADDR_WIDTH_WORDS-1:0] iram_addr0;                                                                        
+    wire [31:0] iram_din0, iram_dout0;
 
-    wire [`MPRJ_IO_PADS-1:0] io_in;
-    wire [`MPRJ_IO_PADS-1:0] io_out;
-    wire [`MPRJ_IO_PADS-1:0] io_oeb;
+	assign iram_clk0 = wb_clk_i;
 
-    wire [31:0] rdata; 
-    wire [31:0] wdata;
-    wire [BITS-1:0] count;
+	instr_ram_mux #(.RAM_ADDR_WIDTH_WORDS(IRAM_ADDR_WIDTH_WORDS),                                                       
+                    .BASE_ADDR(IRAM_BASE_ADDR)) iram_mux_inst (                                                         
+                            `ifdef USE_POWER_PINS                                                                       
+                                .vccd1(vccd1),  // User area 1 1.8V power                                               
+                                .vssd1(vssd1),  // User area 1 digital ground                                           
+                            `endif                                                                                      
+                                .sel_wb      (la_data_in[0]), 
+								
+								 // CPU IF
+                                .rdata       (),  
+                                .addr        (32'b0),
+ 
+                                .wb_clk_i    (wb_clk_i), 
+                                .wb_rst_i    (wb_rst_i),
+                                .wbs_stb_i   (wbs_stb_i),
+                                .wbs_cyc_i   (wbs_cyc_i),
+                                .wbs_we_i    (wbs_we_i),
+                                .wbs_sel_i   (wbs_sel_i),
+                                .wbs_dat_i   (wbs_dat_i),
+                                .wbs_adr_i   (wbs_adr_i),
+                                .wbs_ack_o   (wbs_ack_o),
+                                .wbs_dat_o   (wbs_dat_o),
+                                                                                          
+                                .ram_csb0    (iram_csb0),
+                                .ram_web0    (iram_web0),
+                                .ram_wmask0  (iram_wmask0),
+                                .ram_addr0   (iram_addr0),
+                                .ram_din0    (iram_din0),
+                                .ram_dout0   (iram_dout0));
 
-    wire valid;
-    wire [3:0] wstrb;
-    wire [31:0] la_write;
 
-    // WB MI A
-    assign valid = wbs_cyc_i && wbs_stb_i; 
-    assign wstrb = wbs_sel_i & {4{wbs_we_i}};
-    assign wbs_dat_o = rdata;
-    assign wdata = wbs_dat_i;
-
-    // IO
-    assign io_out = count;
-    assign io_oeb = {(`MPRJ_IO_PADS-1){rst}};
-
-    // IRQ
-    assign irq = 3'b000;	// Unused
-
-    // LA
-    assign la_data_out = {{(127-BITS){1'b0}}, count};
-    // Assuming LA probes [63:32] are for controlling the count register  
-    assign la_write = ~la_oenb[63:32] & ~{BITS{valid}};
-    // Assuming LA probes [65:64] are for controlling the count clk & reset  
-    assign clk = (~la_oenb[64]) ? la_data_in[64]: wb_clk_i;
-    assign rst = (~la_oenb[65]) ? la_data_in[65]: wb_rst_i;
-
-    counter #(
-        .BITS(BITS)
-    ) counter(
-        .clk(clk),
-        .reset(rst),
-        .ready(wbs_ack_o),
-        .valid(valid),
-        .rdata(rdata),
-        .wdata(wbs_dat_i),
-        .wstrb(wstrb),
-        .la_write(la_write),
-        .la_input(la_data_in[63:32]),
-        .count(count)
-    );
-
-endmodule
-
-module counter #(
-    parameter BITS = 32
-)(
-    input clk,
-    input reset,
-    input valid,
-    input [3:0] wstrb,
-    input [BITS-1:0] wdata,
-    input [BITS-1:0] la_write,
-    input [BITS-1:0] la_input,
-    output ready,
-    output [BITS-1:0] rdata,
-    output [BITS-1:0] count
-);
-    reg ready;
-    reg [BITS-1:0] count;
-    reg [BITS-1:0] rdata;
-
-    always @(posedge clk) begin
-        if (reset) begin
-            count <= 0;
-            ready <= 0;
-        end else begin
-            ready <= 1'b0;
-            if (~|la_write) begin
-                count <= count + 1;
-            end
-            if (valid && !ready) begin
-                ready <= 1'b1;
-                rdata <= count;
-                if (wstrb[0]) count[7:0]   <= wdata[7:0];
-                if (wstrb[1]) count[15:8]  <= wdata[15:8];
-                if (wstrb[2]) count[23:16] <= wdata[23:16];
-                if (wstrb[3]) count[31:24] <= wdata[31:24];
-            end else if (|la_write) begin
-                count <= la_write & la_input;
-            end
-        end
-    end
+	sky130_sram_2kbyte_1rw1r_32x512_8 iram_inst (                                                                       
+                    `ifdef USE_POWER_PINS                                                                               
+                        .vccd1(vccd1),  // User area 1 1.8V power                                                       
+                        .vssd1(vssd1),  // User area 1 digital ground                                                   
+                    `endif                                                                                                                                                                                              
+                        .clk0   (iram_clk0),                                                                     
+                        .csb0   (iram_csb0),                                                   
+                        .web0   (iram_web0),                                                   
+                        .wmask0 (iram_wmask0),                                                 
+                        .addr0  (iram_addr0),                                                  
+                        .din0   (iram_din0),                                                   
+                        .dout0  (iram_dout0));
 
 endmodule
+
 `default_nettype wire
