@@ -2,6 +2,8 @@
 -v $(USER_PROJECT_VERILOG)/rtl/user_project_wrapper.v	     
 -v $(USER_PROJECT_VERILOG)/rtl/rvj1_caravel_soc.v
 -v $(USER_PROJECT_VERILOG)/rtl/instr_ram_mux.v 
+-v $(USER_PROJECT_VERILOG)/rtl/data_ram_mux.v 
+-v $(USER_PROJECT_VERILOG)/rtl/wishbone_mux.v 
 -v $(USER_PROJECT_VERILOG)/rtl/riscv-jedro-1/rtl/inc/jedro_1_defines.v 
 -v $(USER_PROJECT_VERILOG)/rtl/riscv-jedro-1/rtl/jedro_1_ifu.v 
 -v $(USER_PROJECT_VERILOG)/rtl/riscv-jedro-1/rtl/jedro_1_decoder.v 

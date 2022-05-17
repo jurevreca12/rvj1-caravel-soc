@@ -33,7 +33,7 @@ module instr_ram_rw_tb;
 		$dumpvars(0, instr_ram_rw_tb);
 
 		// Repeat cycles of 1000 clock edges as needed to complete testbench
-		repeat (120) begin
+		repeat (220) begin
 			repeat (1000) @(posedge clock);
 			// $display("+1000 cycles");
 		end
