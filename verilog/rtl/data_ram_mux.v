@@ -106,6 +106,8 @@ module data_ram_mux #(
             ram_wmask0 = we;  
             ram_addr0  = addr[RAM_ADDR_WIDTH_WORDS+2-1:2];
             ram_din0   = wdata;
+			wbs_dat_o  = 0;
+			wbs_ack_o  = 0;
             rdata      = ram_dout0; 
             ack        = core_ack;
             err        = 0; // TODO add addr checking, that returns err on wrong addr.
