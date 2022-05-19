@@ -50,7 +50,7 @@ module adding_tb;
 	initial begin
 	   wait(checkbits == 16'hAB60);
 		$display("Monitor: Adding WB Started");
-		wait(checkbits == 32'hAB610000);
+		wait(uut.mprj.dram_inst.din0 == 32'hAB610000 && uut.mprj.dram_inst.addr0 == 0);
 		`ifdef GL
 	    	$display("Monitor: adding WB (GL) PASSED------------------------------");
 		`else
