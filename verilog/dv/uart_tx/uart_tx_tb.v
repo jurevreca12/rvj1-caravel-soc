@@ -51,6 +51,7 @@ module uart_tx_tb;
 	   wait(checkbits == 16'hAB60);
 		$display("Monitor: Uart tx basic WB Started");
 		wait(uut.mprj.uart_inst.uart_tx_o == 1'b0);
+		repeat (400) @(posedge clock);
 		`ifdef GL
 	    	$display("Monitor: uart_tx basic WB (GL) PASSED------------------------------");
 		`else
