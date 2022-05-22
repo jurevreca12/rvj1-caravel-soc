@@ -139,6 +139,17 @@ module user_project_wrapper #(
     wire [31:0]  wbs2_adr;
     wire         wbs2_ack;
     wire [31:0]  wbs2_dat_fromwb;
+	
+	wire		 wb_uart_clk;
+	wire		 wb_uart_rst;
+    wire         wb_uart_stb;
+    wire         wb_uart_cyc;
+    wire         wb_uart_we;
+    wire [3:0]   wb_uart_sel;
+    wire [31:0]  wb_uart_dat_tocpu;
+    wire [31:0]  wb_uart_dat_fromcpu;
+    wire [31:0]  wb_uart_adr;
+    wire         wb_uart_ack;
 
     ///////////////////////////////////////////
     // System on chip 
@@ -294,7 +305,18 @@ module user_project_wrapper #(
                                 .ram_wmask0  (dram_wmask0),
                                 .ram_addr0   (dram_addr0),
                                 .ram_din0    (dram_din0),
-                                .ram_dout0   (dram_dout0));
+                                .ram_dout0   (dram_dout0),
+
+								.wbm_clk_o   (wb_uart_clk),
+								.wbm_rst_o   (wb_uart_rst),
+								.wbm_stb_o   (wb_uart_stb),
+								.wbm_cyc_o   (wb_uart_cyc),
+								.wbm_we_o    (wb_uart_we),
+								.wbm_sel_o   (wb_uart_sel),
+								.wbm_dat_o   (wb_uart_dat_fromcpu),
+								.wbm_adr_o   (wb_uart_adr),
+								.wbm_ack_i   (wb_uart_ack),
+								.wbm_dat_i   (wb_uart_dat_tocpu));
  
     sky130_sram_2kbyte_1rw1r_32x512_8  dram_inst (
 						`ifdef USE_POWER_PINS
@@ -309,6 +331,29 @@ module user_project_wrapper #(
                             .addr0  (dram_addr0),
                             .din0   (dram_din0),
                             .dout0  (dram_dout0));
+
+
+
+	wbuart_wrap uart_inst (
+						`ifdef USE_POWER_PINS
+						    .vccd1(vccd1),	// User area 1 1.8V power
+						    .vssd1(vssd1),	// User area 1 digital ground
+						`endif
+						   	.clk_i     (wb_clk_i),
+							.rstn_i    (~wb_rst_i),
+							.wbs_cyc_i (wb_uart_cyc),
+							.wbs_stb_i (wb_uart_stb),
+							.wbs_we_i  (wb_uart_we),
+							.wbs_adr_i (wb_uart_adr),
+							.wbs_dat_i (wb_uart_dat_fromcpu),
+							.wbs_sel_i (wb_uart_sel),
+							.wbs_ack_o (wb_uart_ack),
+							.wbs_dat_o (wb_uart_dat_tocpu),
+							
+							.uart_rx_i (1'b0),
+							.uart_tx_o ()			
+				);
+
 
 endmodule	// user_project_wrapper
 

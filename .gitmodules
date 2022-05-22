@@ -1,3 +1,6 @@
 [submodule "verilog/rtl/riscv-jedro-1"]
 	path = verilog/rtl/riscv-jedro-1
 	url = https://github.com/jurevreca12/riscv-jedro-1.git
+[submodule "verilog/rtl/wbuart32"]
+	path = verilog/rtl/wbuart32
+	url = https://github.com/ZipCPU/wbuart32.git

@@ -78,12 +78,16 @@ module data_ram_mux #(
 	/****************************
 	* DEFINITIONS AND CLOCKING
 	****************************/
-    localparam ADDR_LO_MASK = (1 << RAM_ADDR_WIDTH_WORDS) - 1;
+	localparam RAM_ADDR_WIDTH_BYTES = RAM_ADDR_WIDTH_WORDS + 2;
+    localparam ADDR_LO_MASK = (1 << RAM_ADDR_WIDTH_BYTES) - 1;
     localparam ADDR_HI_MASK = 32'hffff_ffff - ADDR_LO_MASK; 
     
 	wire ram_cs;
     reg ram_cs_r, ram_wbs_ack_r, core_ack;
 	reg was_ram;	
+	
+	reg stb_delay;
+	wire stb_rising;
 
     assign ram_clk0 = wb_clk_i;
 	assign wbm_clk_o = wb_clk_i;
@@ -116,6 +120,14 @@ module data_ram_mux #(
 		if (wb_rst_i) was_ram <= 0;
 		else		  was_ram <= is_ram;
 	end
+
+
+	always@(posedge wb_clk_i) begin
+		if (wb_rst_i) stb_delay <= 1'b0;
+		else 		  stb_delay <= stb;
+	end
+
+	assign stb_rising = stb & ~stb_delay;
 
 	/****************************
 	* COMBINATIONAL LOGIC
@@ -153,7 +165,7 @@ module data_ram_mux #(
         	ram_addr0  = addr[RAM_ADDR_WIDTH_WORDS+2-1:2];
         	ram_din0   = wdata;
 
-			wbm_stb_o  = stb;
+			wbm_stb_o  = stb_rising;
 			wbm_cyc_o  = stb;
 			wbm_we_o   = |we;
 			wbm_sel_o  = 4'b1111; // Currently LSU only supports reading words

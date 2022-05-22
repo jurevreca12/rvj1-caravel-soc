@@ -4,6 +4,11 @@
 -v $(USER_PROJECT_VERILOG)/rtl/instr_ram_mux.v 
 -v $(USER_PROJECT_VERILOG)/rtl/data_ram_mux.v 
 -v $(USER_PROJECT_VERILOG)/rtl/wishbone_mux.v 
+-v $(USER_PROJECT_VERILOG)/rtl/wbuart_wrap.v
+-v $(USER_PROJECT_VERILOG)/rtl/wbuart32/rtl/wbuart.v
+-v $(USER_PROJECT_VERILOG)/rtl/wbuart32/rtl/txuart.v
+-v $(USER_PROJECT_VERILOG)/rtl/wbuart32/rtl/rxuart.v
+-v $(USER_PROJECT_VERILOG)/rtl/wbuart32/rtl/ufifo.v
 -v $(USER_PROJECT_VERILOG)/rtl/riscv-jedro-1/rtl/inc/jedro_1_defines.v 
 -v $(USER_PROJECT_VERILOG)/rtl/riscv-jedro-1/rtl/jedro_1_ifu.v 
 -v $(USER_PROJECT_VERILOG)/rtl/riscv-jedro-1/rtl/jedro_1_decoder.v 
