@@ -43,8 +43,8 @@ set ::env(CLOCK_NET) "wb_clk_i"
 
 set ::env(CLOCK_PERIOD) "10"
 
-## Internal Macros
-### Macro PDN Connections
+# Internal Macros
+## Macro PDN Connections
 set ::env(FP_PDN_MACRO_HOOKS) "\
 	iram_inst vccd1 vssd1, \
 	rvj1_soc vccd1 vssd1, \
@@ -59,10 +59,10 @@ set ::env(GLB_RT_OBS)  "li1  0     0    2920    3520,
                         met2 50    1552 733.1   1968.54,
                         met3 50    1552 733.1   1968.54,
                         met4 50    1552 733.1   1968.54,
-                        met1 2300  1552 2779.78 1949.5,
-                        met2 2300  1552 2779.78 1949.5,
-                        met3 2300  1552 2779.78 1949.5,
-                        met4 2300  1552 2779.78 1949.5"
+                        met1 2100  1552 2833.1  1968.54,
+                        met2 2100  1552 2833.1  1968.54,
+                        met3 2100  1552 2833.1  1968.54,
+                        met4 2100  1552 2833.1  1968.54"
 
 
 ### Black-box verilog and views
