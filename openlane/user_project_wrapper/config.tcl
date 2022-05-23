@@ -54,6 +54,17 @@ set ::env(FP_PDN_MACRO_HOOKS) "\
 ### Macro Placement
 set ::env(MACRO_PLACEMENT_CFG) $script_dir/macro.cfg
 
+set ::env(GLB_RT_OBS)  "li1  0     0    2920    3520,
+                        met1 50    1552 733.1   1968.54,
+                        met2 50    1552 733.1   1968.54,
+                        met3 50    1552 733.1   1968.54,
+                        met4 50    1552 733.1   1968.54,
+                        met1 2300  1552 2779.78 1949.5,
+                        met2 2300  1552 2779.78 1949.5,
+                        met3 2300  1552 2779.78 1949.5,
+                        met4 2300  1552 2779.78 1949.5"
+
+
 ### Black-box verilog and views
 set ::env(VERILOG_FILES_BLACKBOX) "\
 	$::env(PDK_ROOT)/$::env(PDK)/libs.ref/sky130_sram_macros/verilog/sky130_sram_2kbyte_1rw1r_32x512_8.v \
