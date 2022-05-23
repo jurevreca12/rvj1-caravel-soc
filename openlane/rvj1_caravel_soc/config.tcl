@@ -24,8 +24,8 @@ set ::env(VERILOG_FILES) "\
 	$::env(CARAVEL_ROOT)/verilog/rtl/defines.v \
 	$script_dir/../../verilog/rtl/rvj1_caravel_soc.v \
 	$script_dir/../../verilog/rtl/instr_ram_mux.v \
+	$script_dir/../../verilog/rtl/data_ram_mux.v \
 	$script_dir/../../verilog/rtl/wishbone_mux.v \
-	$script_dir/../../verilog/rtl/rvj1_caravel_soc.v \
     $script_dir/../../verilog/rtl/riscv-jedro-1/rtl/inc/jedro_1_defines.v \
     $script_dir/../../verilog/rtl/riscv-jedro-1/rtl/jedro_1_ifu.v \
     $script_dir/../../verilog/rtl/riscv-jedro-1/rtl/jedro_1_decoder.v \ 

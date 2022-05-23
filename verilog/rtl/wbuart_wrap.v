@@ -21,7 +21,7 @@ module	wbuart_wrap #(
 		`endif
 		
 		input	wire		clk_i, 
-		input   wire		rstn_i,
+		input   wire		rst_i,
 
 		// Wishbone inputs
 		input	wire		wbs_cyc_i,
@@ -47,7 +47,7 @@ module	wbuart_wrap #(
 
 	wbuart #(.INITIAL_SETUP(INITIAL_SETUP),
 	         .HARDWARE_FLOW_CONTROL_PRESENT(1'b0)) wbuart_inst (.i_clk     (clk_i),
-                                                                .i_reset   (~rstn_i),
+                                                                .i_reset   (rst_i),
 
                                                                 .i_wb_cyc  (wb_cyc),
                                                                 .i_wb_stb  (wb_stb),

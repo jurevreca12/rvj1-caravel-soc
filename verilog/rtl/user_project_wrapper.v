@@ -199,7 +199,7 @@ module user_project_wrapper #(
 						    .vssd1(vssd1),	// User area 1 digital ground
 						`endif
 						   	.clk_i     (wb_clk_i),
-							.rstn_i    (~wb_rst_i),
+							.rst_i     (wb_rst_i),
 							.wbs_cyc_i (wb_uart_cyc),
 							.wbs_stb_i (wb_uart_stb),
 							.wbs_we_i  (wb_uart_we),

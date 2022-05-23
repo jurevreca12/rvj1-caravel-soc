@@ -41,14 +41,14 @@ set ::env(VERILOG_FILES) "\
 set ::env(CLOCK_PORT) "wb_clk_i"
 set ::env(CLOCK_NET) "wb_clk_i"
 
-set ::env(CLOCK_PERIOD) "100"
+set ::env(CLOCK_PERIOD) "10"
 
 ## Internal Macros
 ### Macro PDN Connections
 set ::env(FP_PDN_MACRO_HOOKS) "\
-	iram_inst vccd1 vssd1 \
-	rvj1_soc vccd1 vssd1 \
-	dram_inst vccd1 vssd1 \
+	iram_inst vccd1 vssd1, \
+	rvj1_soc vccd1 vssd1, \
+	dram_inst vccd1 vssd1, \
 	uart_inst vccd1 vssd1" 
 
 ### Macro Placement

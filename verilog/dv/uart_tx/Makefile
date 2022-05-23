@@ -110,8 +110,8 @@ endif
 ifeq ($(SIM),GL)
     ifeq ($(CONFIG),caravel_user_project)
 		iverilog -Ttyp -DFUNCTIONAL -DGL -DUSE_POWER_PINS -DUNIT_DELAY=#1 \
-        -f$(VERILOG_PATH)/includes/includes.gl.caravel 
-        -f$(USER_PROJECT_VERILOG)/includes/includes.gl.$(CONFIG) -o $@ $<
+		-f$(VERILOG_PATH)/includes/includes.gl.caravel \
+		-f$(USER_PROJECT_VERILOG)/includes/includes.gl.$(CONFIG) -o $@ $<
     else
 		iverilog -Ttyp -DFUNCTIONAL -DGL -DUSE_POWER_PINS -DUNIT_DELAY=#1 \
         -f$(VERILOG_PATH)/includes/includes.gl.$(CONFIG) \
