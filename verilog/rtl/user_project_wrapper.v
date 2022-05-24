@@ -209,8 +209,8 @@ module user_project_wrapper #(
 							.wbs_ack_o (wb_uart_ack),
 							.wbs_dat_o (wb_uart_dat_tocpu),
 							
-							.uart_rx_i (1'b0),
-							.uart_tx_o ()			
+							.uart_rx_i (io_in[9]),
+							.uart_tx_o (io_out[10])			
 				);
 
 
