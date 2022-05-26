@@ -71,7 +71,7 @@ set ::env(CLOCK_PERIOD) "100"
 #set ::env(FP_SIZING) absolute
 #set ::env(DIE_AREA) "0 0 900 600"
 
-set ::env(FP_PIN_ORDER_CFG) $script_dir/pin_order.cfg
+#set ::env(FP_PIN_ORDER_CFG) $script_dir/pin_order.cfg
 
 set ::env(SYNTH_STRATEGY) "AREA 2"
 set ::env(PL_BASIC_PLACEMENT) 0
