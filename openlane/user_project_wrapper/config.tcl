@@ -32,6 +32,15 @@ set ::env(DESIGN_NAME) user_project_wrapper
 
 # User Configurations
 
+set ::env(RUN_KLAYOUT_XOR) 0
+set ::env(RUN_KLAYOUT_DRC) 0
+# no point in running DRC with magic once openram is in because it will find 3M issues
+# try to turn off all DRC checking so the flow completes and use precheck for DRC instead.
+set ::env(MAGIC_DRC_USE_GDS) 0
+set ::env(RUN_MAGIC_DRC) 0
+set ::env(QUIT_ON_MAGIC_DRC) 0
+
+
 ## Source Verilog Files
 set ::env(VERILOG_FILES) "\
 	$::env(CARAVEL_ROOT)/verilog/rtl/defines.v \
@@ -54,15 +63,15 @@ set ::env(FP_PDN_MACRO_HOOKS) "\
 ### Macro Placement
 set ::env(MACRO_PLACEMENT_CFG) $script_dir/macro.cfg
 
-set ::env(GLB_RT_OBS)  "li1  0     0    2920    3520,
-                        met1 1100  800  1783.1  1216.54,
-                        met2 1100  800  1783.1  1216.54,
-                        met3 1100  800  1783.1  1216.54,
-                        met4 1100  800  1783.1  1216.54,
-                        met1 1100  2400 1783.1  2816.54,
-                        met2 1100  2400 1783.1  2816.54,
-                        met3 1100  2400 1783.1  2816.54,
-                        met4 1100  2400 1783.1  2816.54"
+set ::env(GLB_RT_OBS)  "met1 1100  800  1783.1  1216.54, \
+                        met2 1100  800  1783.1  1216.54, \
+                        met3 1100  800  1783.1  1216.54, \
+                        met4 1100  800  1783.1  1216.54, \
+                        met1 1100  2400 1783.1  2816.54, \
+                        met2 1100  2400 1783.1  2816.54, \
+                        met3 1100  2400 1783.1  2816.54, \
+                        met4 1100  2400 1783.1  2816.54, \
+                        met5 0     0    2920    3520"
 
 
 ### Black-box verilog and views
@@ -81,7 +90,7 @@ set ::env(EXTRA_GDS_FILES) "\
     $script_dir/../../gds/wbuart_wrap.gds \
 	$script_dir/../../gds/rvj1_caravel_soc.gds"
 
-# set ::env(GLB_RT_MAXLAYER) 5
+#set ::env(GLB_RT_MAXLAYER) 6
 set ::env(RT_MAX_LAYER) {met4}
 
 # disable pdn check nodes becuase it hangs with multiple power domains.
