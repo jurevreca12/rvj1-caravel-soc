@@ -12,14 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 // SPDX-License-Identifier: Apache-2.0
+`include "rvj1_defines.v"
 
 `default_nettype none
 module rvj1_caravel_soc #(
-    parameter JEDRO_1_BOOT_ADDR = 32'h3000_0000,
-    parameter IRAM_BASE_ADDR = 32'h3000_0000,
-    parameter IRAM_ADDR_WIDTH_WORDS = 0,
-    parameter DRAM_BASE_ADDR = 32'h3000_4000,
-    parameter DRAM_ADDR_WIDTH_WORDS = 0
+    parameter JEDRO_1_BOOT_ADDR = `JEDRO_1_BOOT_ADDR,
+    parameter IRAM_BASE_ADDR = `IRAM_BASE_ADDR,
+    parameter IRAM_ADDR_WIDTH_WORDS = `IRAM_ADDR_WIDTH_WORDS,
+    parameter DRAM_BASE_ADDR = `DRAM_BASE_ADDR,
+    parameter DRAM_ADDR_WIDTH_WORDS = `DRAM_ADDR_WIDTH_WORDS
 )(
 `ifdef USE_POWER_PINS
     inout vccd1,	// User area 1 1.8V supply

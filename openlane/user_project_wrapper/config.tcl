@@ -44,7 +44,8 @@ set ::env(QUIT_ON_MAGIC_DRC) 0
 ## Source Verilog Files
 set ::env(VERILOG_FILES) "\
 	$::env(CARAVEL_ROOT)/verilog/rtl/defines.v \
-	$script_dir/../../verilog/rtl/user_project_wrapper.v"
+	$script_dir/../../verilog/rtl/user_project_wrapper.v \
+	$script_dir/../../verilog/rtl/rvj1_defines.v"
 
 ## Clock configurations
 set ::env(CLOCK_PORT) "wb_clk_i"

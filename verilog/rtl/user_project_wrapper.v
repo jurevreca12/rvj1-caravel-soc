@@ -28,6 +28,7 @@
  *
  *-------------------------------------------------------------
  */
+`include "rvj1_defines.v"
 
 module user_project_wrapper #(
     parameter BITS = 32
@@ -77,25 +78,15 @@ module user_project_wrapper #(
     // User maskable interrupt signals
     output [2:0] user_irq
 );
-    ///////////////////////////////////////////
-    // LOCAL PARAMS
-    ///////////////////////////////////////////
-    localparam IRAM_BASE_ADDR        = 32'h3000_0000;
-    localparam IRAM_ADDR_WIDTH_BYTES = $clog2(2048);
-    localparam IRAM_ADDR_WIDTH_WORDS = IRAM_ADDR_WIDTH_BYTES - 2;
-
-    localparam DRAM_BASE_ADDR        = 32'h3000_4000;
-    localparam DRAM_ADDR_WIDTH_BYTES = $clog2(2048);
-    localparam DRAM_ADDR_WIDTH_WORDS = DRAM_ADDR_WIDTH_BYTES - 2;
 
     wire iram_clk0, iram_csb0, iram_web0;
     wire [3:0] iram_wmask0;
-    wire [IRAM_ADDR_WIDTH_WORDS-1:0] iram_addr0;
+    wire [`IRAM_ADDR_WIDTH_WORDS-1:0] iram_addr0;
     wire [31:0] iram_din0, iram_dout0;
 
     wire dram_clk0, dram_csb0, dram_web0;
     wire [3:0]  dram_wmask0;
-    wire [DRAM_ADDR_WIDTH_WORDS-1:0] dram_addr0;
+    wire [`DRAM_ADDR_WIDTH_WORDS-1:0] dram_addr0;
     wire [31:0] dram_din0, dram_dout0;
     
     wire		 wb_uart_clk;
@@ -125,11 +116,7 @@ module user_project_wrapper #(
                         .dout0  (iram_dout0));                                             
 
 
-	rvj1_caravel_soc #(.JEDRO_1_BOOT_ADDR(IRAM_BASE_ADDR),
-					   .IRAM_BASE_ADDR(IRAM_BASE_ADDR),
-					   .IRAM_ADDR_WIDTH_WORDS(IRAM_ADDR_WIDTH_WORDS),	
-					   .DRAM_BASE_ADDR(DRAM_BASE_ADDR),
-					   .DRAM_ADDR_WIDTH_WORDS(DRAM_ADDR_WIDTH_WORDS)) rvj1_soc (
+	rvj1_caravel_soc rvj1_soc (
 		`ifdef USE_POWER_PINS
 			.vccd1(vccd1),	// User area 1 1.8V power
 			.vssd1(vssd1),	// User area 1 digital ground
