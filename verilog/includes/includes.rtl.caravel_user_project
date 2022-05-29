@@ -27,4 +27,6 @@
 -v $(USER_PROJECT_VERILOG)/rtl/riscv-jedro-1/rtl/alu/shift/mux2x1.v 
 -v $(USER_PROJECT_VERILOG)/rtl/riscv-jedro-1/rtl/alu/sign_extension/sign_extender.v 
 +incdir+$(USER_PROJECT_VERILOG)/rtl/riscv-jedro-1/rtl/inc/ 
-+incdir+$(USER_PROJECT_VERILOG)/rtl/inc/ 
++incdir+$(USER_PROJECT_VERILOG)/rtl/ 
++incdir+$(USER_PROJECT_VERILOG)/../caravel/verilog/rtl/
++timescale+1ns/1ps

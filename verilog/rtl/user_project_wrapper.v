@@ -28,7 +28,7 @@
  *
  *-------------------------------------------------------------
  */
-`include "rvj1_defines.v"
+`include "inc/rvj1_defines.v"
 
 module user_project_wrapper #(
     parameter BITS = 32
@@ -121,8 +121,17 @@ module user_project_wrapper #(
 			.vccd1(vccd1),	// User area 1 1.8V power
 			.vssd1(vssd1),	// User area 1 digital ground
 		`endif
-		    .jedro_1_rstn   (la_data_in[1]),
-		    .sel_wb			(la_data_in[0]),
+		    //.jedro_1_rstn   (la_data_in[1]),
+		    //.sel_wb			(la_data_in[0]),
+			.la_data_in     (la_data_in),
+			.la_data_out	(la_data_out),
+			.la_oenb		(la_oenb),
+
+			.io_in			(io_in),
+			.io_out			(io_out),
+			.io_oeb			(io_oeb),
+
+			.user_irq		(user_irq),
 		    
 		    .wb_clk_i       (wb_clk_i),
 		    .wb_rst_i		(wb_rst_i),

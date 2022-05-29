@@ -20,8 +20,11 @@ set script_dir [file dirname [file normalize [info script]]]
 
 set ::env(DESIGN_NAME) rvj1_caravel_soc
 
+set ::env(VERILOG_INCLUDE_DIRS) [glob $script_dir/../../verilog/rtl/riscv-jedro-1/rtl/inc] 
+
 set ::env(VERILOG_FILES) "\
 	$::env(CARAVEL_ROOT)/verilog/rtl/defines.v \
+	$script_dir/../../verilog/rtl/inc/rvj1_defines.v \
 	$script_dir/../../verilog/rtl/rvj1_caravel_soc.v \
 	$script_dir/../../verilog/rtl/instr_ram_mux.v \
 	$script_dir/../../verilog/rtl/data_ram_mux.v \
@@ -44,7 +47,7 @@ set ::env(VERILOG_FILES) "\
     $script_dir/../../verilog/rtl/riscv-jedro-1/rtl/alu/shift/mux2x1.v \
     $script_dir/../../verilog/rtl/riscv-jedro-1/rtl/alu/sign_extension/sign_extender.v" 
 
-set ::env(VERILOG_INCLUDE_DIRS) [glob $script_dir/../../verilog/rtl/riscv-jedro-1/rtl/inc ] 
+
 
 #set ::env(VERILOG_FILES_BLACKBOX) " \
 #    $::env(PDK_ROOT)/$::env(PDK)/libs.ref/sky130_sram_macros/verilog/sky130_sram_2kbyte_1rw1r_32x512_8.v \
@@ -71,7 +74,7 @@ set ::env(CLOCK_PERIOD) "100"
 #set ::env(FP_SIZING) absolute
 #set ::env(DIE_AREA) "0 0 900 600"
 
-#set ::env(FP_PIN_ORDER_CFG) $script_dir/pin_order.cfg
+set ::env(FP_PIN_ORDER_CFG) $script_dir/pin_order.cfg
 
 set ::env(SYNTH_STRATEGY) "AREA 2"
 set ::env(PL_BASIC_PLACEMENT) 0

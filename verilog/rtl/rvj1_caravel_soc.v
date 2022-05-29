@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 // SPDX-License-Identifier: Apache-2.0
-`include "rvj1_defines.v"
+`include "inc/rvj1_defines.v"
 
 `default_nettype none
 module rvj1_caravel_soc #(
@@ -27,9 +27,19 @@ module rvj1_caravel_soc #(
     inout vssd1,	// User area 1 digital ground
 `endif
 
-    input jedro_1_rstn,
-    input sel_wb,
+	// Logic analyzer signals
+	input  [127:0] la_data_in,
+	output [127:0] la_data_out,
+	input  [127:0] la_oenb,
 
+    //input jedro_1_rstn,
+    //input sel_wb,
+
+	input  [38-1:0] io_in,
+	output [38-1:0] io_out,
+	output [38-1:0] io_oeb,
+
+	output [2:0] user_irq,
 
 	// Wishbone Slave ports (WB MI A)
     input wb_clk_i,
@@ -80,6 +90,9 @@ module rvj1_caravel_soc #(
 	///////////////////////////////////////////
     // SIGNAL DEFINITIONS
     ///////////////////////////////////////////
+	wire         jedro_1_rstn;
+	wire		 sel_wb;
+
     wire [31:0]  cpu2imux_rdata;
     wire [31:0]  cpu2imux_addr;
 
@@ -119,6 +132,12 @@ module rvj1_caravel_soc #(
     wire [31:0]  wbs2_dat_fromwb;
 	
 
+	assign jedro_1_rstn = la_data_in[1];
+	assign sel_wb = la_data_in[0];
+	assign io_oeb = 0;
+	assign io_out = 0;
+	assign la_data_out = 128'b0;
+	assign user_irq = 3'b000;
 
     wishbone_mux #(.BASE_ADDR_0(IRAM_BASE_ADDR),
                    .ADDR_WIDTH_0(IRAM_ADDR_WIDTH_BYTES),

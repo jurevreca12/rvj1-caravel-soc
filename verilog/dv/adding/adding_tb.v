@@ -16,7 +16,8 @@ module adding_tb;
 
 	assign checkbits = mprj_io[31:16];
 
-	assign mprj_io[3] = 1'b1;
+	pullup(mprj_io[3]);
+	assign mprj_io[3] = (CSB == 1'b1) ? 1'b1 : 1'bz;
 
 	// External clock is used by default.  Make this artificially fast for the
 	// simulation.  Normally this would be a slow clock and the digital PLL
