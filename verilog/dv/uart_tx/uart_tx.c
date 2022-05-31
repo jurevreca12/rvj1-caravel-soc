@@ -52,6 +52,9 @@ void main()
     reg_mprj_io_17 = GPIO_MODE_MGMT_STD_OUTPUT;
     reg_mprj_io_16 = GPIO_MODE_MGMT_STD_OUTPUT;
 
+	reg_mprj_io_12 = GPIO_MODE_USER_STD_INPUT_NOPULL;
+	reg_mprj_io_13 = GPIO_MODE_USER_STD_OUTPUT;
+
      /* Apply configuration */
     reg_mprj_xfer = 1;
     while (reg_mprj_xfer == 1);
