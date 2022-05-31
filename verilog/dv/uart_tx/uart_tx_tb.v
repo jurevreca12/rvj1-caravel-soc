@@ -16,7 +16,11 @@ module uart_tx_tb;
 
 	assign checkbits = mprj_io[31:16];
 
-	assign mprj_io[3] = 1'b1;
+	pullup(mprj_io[3]);                                                                                                 
+    assign mprj_io[3] = (CSB == 1'b1) ? 1'b1 : 1'bz;
+
+	pulldown(mprj_io[12]); // uart tx/rx
+	pulldown(mprj_io[13]); 
 
 	// External clock is used by default.  Make this artificially fast for the
 	// simulation.  Normally this would be a slow clock and the digital PLL
@@ -33,7 +37,7 @@ module uart_tx_tb;
 		$dumpvars(0, uart_tx_tb);
 
 		// Repeat cycles of 1000 clock edges as needed to complete testbench
-		repeat (220) begin
+		repeat (180) begin
 			repeat (1000) @(posedge clock);
 			// $display("+1000 cycles");
 		end
