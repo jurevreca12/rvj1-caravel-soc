@@ -35,7 +35,7 @@ module adding_tb;
 
 		// Repeat cycles of 1000 clock edges as needed to complete testbench
 		repeat (220) begin
-			repeat (1000) @(posedge clock);
+			repeat (400) @(posedge clock);
 			// $display("+1000 cycles");
 		end
 		$display("%c[1;31m",27);
@@ -52,6 +52,7 @@ module adding_tb;
 	   wait(checkbits == 16'hAB60);
 		$display("Monitor: Adding WB Started");
 		wait(uut.mprj.dram_inst.din0 == 32'hAB610000 && uut.mprj.dram_inst.addr0 == 0);
+		repeat (50) @(posedge clock);
 		`ifdef GL
 	    	$display("Monitor: adding WB (GL) PASSED------------------------------");
 		`else

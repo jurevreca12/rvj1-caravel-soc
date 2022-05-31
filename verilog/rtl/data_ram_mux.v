@@ -65,7 +65,7 @@ module data_ram_mux #(
 
 	// Output to wishbone master
 	output wire							   wbm_clk_o,
-	output reg							   wbm_rst_o,
+	output wire							   wbm_rst_o,
 	output reg							   wbm_stb_o,
 	output reg							   wbm_cyc_o,
 	output reg							   wbm_we_o,
@@ -91,6 +91,8 @@ module data_ram_mux #(
 
     assign ram_clk0 = wb_clk_i;
 	assign wbm_clk_o = wb_clk_i;
+	assign wbm_rst_o = wb_rst_i;
+
 
 	/****************************
 	* WISHBONE SLAVE - RAM ACKING
