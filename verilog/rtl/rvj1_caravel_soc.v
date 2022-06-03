@@ -35,9 +35,9 @@ module rvj1_caravel_soc #(
     //input jedro_1_rstn,
     //input sel_wb,
 
-	input  [38-1:0] io_in,
-	output [38-1:0] io_out,
-	output [38-1:0] io_oeb,
+	input  [24-1:0] gpio_in,
+	output [24-1:0] gpio_out,
+	output [38-1:0] gpio_oeb,
 
 	output [2:0] user_irq,
 
@@ -52,17 +52,6 @@ module rvj1_caravel_soc #(
     input [31:0] wbs_adr_i,
     output wbs_ack_o,
     output [31:0] wbs_dat_o,
-    
-	output		  wb_uart_clk,
-	output		  wb_uart_rst,
-    output        wb_uart_stb,
-    output        wb_uart_cyc,
-    output        wb_uart_we,
-    output [3:0]  wb_uart_sel,
-    output [31:0] wb_uart_dat_fromcpu,
-    output [31:0] wb_uart_adr,
-    input         wb_uart_ack,
-    input  [31:0] wb_uart_dat_tocpu,
     
     output iram_clk0, 
     output iram_csb0, 
@@ -131,11 +120,19 @@ module rvj1_caravel_soc #(
     wire         wbs2_ack;
     wire [31:0]  wbs2_dat_fromwb;
 	
+	wire	     wb_gpio_clk;
+	wire		 wb_gpio_rst;
+	wire         wb_gpio_stb;
+	wire         wb_gpio_cyc;
+	wire         wb_gpio_we;
+	wire [3:0]   wb_gpio_sel;
+	wire [31:0]  wb_gpio_dat_fromcpu;
+	wire [31:0]  wb_gpio_adr;
+	wire         wb_gpio_ack;
+	wire [31:0]  wb_gpio_dat_tocpu;
 
 	assign jedro_1_rstn = la_data_in[1];
 	assign sel_wb = la_data_in[0];
-	assign io_oeb = 0;
-	assign io_out = 0;
 	assign la_data_out = 128'b0;
 	assign user_irq = 3'b000;
 
@@ -267,16 +264,40 @@ module rvj1_caravel_soc #(
                                 .ram_din0    (dram_din0),
                                 .ram_dout0   (dram_dout0),
 
-								.wbm_clk_o   (wb_uart_clk),
-								.wbm_rst_o   (wb_uart_rst),
-								.wbm_stb_o   (wb_uart_stb),
-								.wbm_cyc_o   (wb_uart_cyc),
-								.wbm_we_o    (wb_uart_we),
-								.wbm_sel_o   (wb_uart_sel),
-								.wbm_dat_o   (wb_uart_dat_fromcpu),
-								.wbm_adr_o   (wb_uart_adr),
-								.wbm_ack_i   (wb_uart_ack),
-								.wbm_dat_i   (wb_uart_dat_tocpu));                                                                   
+								.wbm_clk_o   (wb_gpio_clk),
+								.wbm_rst_o   (wb_gpio_rst),
+								.wbm_stb_o   (wb_gpio_stb),
+								.wbm_cyc_o   (wb_gpio_cyc),
+								.wbm_we_o    (wb_gpio_we),
+								.wbm_sel_o   (wb_gpio_sel),
+								.wbm_dat_o   (wb_gpio_dat_fromcpu),
+								.wbm_adr_o   (wb_gpio_adr),
+								.wbm_ack_i   (wb_gpio_ack),
+								.wbm_dat_i   (wb_gpio_dat_tocpu));
+
+
+	gpio gpio_inst (	
+					`ifdef USE_POWER_PINS
+						.vccd1(vccd1),	// User area 1 1.8V power
+						.vssd1(vssd1),	// User area 1 digital ground
+					`endif
+						.clk_i (wb_clk_i),
+						.rst_i (wb_rst_i),
+
+						.wbs_cyc_i (wb_gpio_cyc),
+						.wbs_stb_i (wb_gpio_stb),
+						.wbs_we_i  (wb_gpio_we),
+						.wbs_adr_i (wb_gpio_adr),
+						.wbs_dat_i (wb_gpio_dat_fromcpu),
+					    .wbs_sel_i (wb_gpio_sel),
+					    .wbs_ack_o (wb_gpio_ack),
+						.wbs_dat_o (wb_gpio_dat_tocpu),
+
+						.gpio_in   (gpio_in),
+						.gpio_out  (gpio_out),
+						.gpio_oeb  (gpio_oeb));
+
+			
 
 endmodule
 

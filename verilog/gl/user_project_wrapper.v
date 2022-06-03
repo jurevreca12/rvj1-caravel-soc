@@ -213,112 +213,6 @@ module user_project_wrapper (user_clock2,
  wire \iram_wmask0[1] ;
  wire \iram_wmask0[2] ;
  wire \iram_wmask0[3] ;
- wire wb_uart_ack;
- wire \wb_uart_adr[0] ;
- wire \wb_uart_adr[10] ;
- wire \wb_uart_adr[11] ;
- wire \wb_uart_adr[12] ;
- wire \wb_uart_adr[13] ;
- wire \wb_uart_adr[14] ;
- wire \wb_uart_adr[15] ;
- wire \wb_uart_adr[16] ;
- wire \wb_uart_adr[17] ;
- wire \wb_uart_adr[18] ;
- wire \wb_uart_adr[19] ;
- wire \wb_uart_adr[1] ;
- wire \wb_uart_adr[20] ;
- wire \wb_uart_adr[21] ;
- wire \wb_uart_adr[22] ;
- wire \wb_uart_adr[23] ;
- wire \wb_uart_adr[24] ;
- wire \wb_uart_adr[25] ;
- wire \wb_uart_adr[26] ;
- wire \wb_uart_adr[27] ;
- wire \wb_uart_adr[28] ;
- wire \wb_uart_adr[29] ;
- wire \wb_uart_adr[2] ;
- wire \wb_uart_adr[30] ;
- wire \wb_uart_adr[31] ;
- wire \wb_uart_adr[3] ;
- wire \wb_uart_adr[4] ;
- wire \wb_uart_adr[5] ;
- wire \wb_uart_adr[6] ;
- wire \wb_uart_adr[7] ;
- wire \wb_uart_adr[8] ;
- wire \wb_uart_adr[9] ;
- wire wb_uart_clk;
- wire wb_uart_cyc;
- wire \wb_uart_dat_fromcpu[0] ;
- wire \wb_uart_dat_fromcpu[10] ;
- wire \wb_uart_dat_fromcpu[11] ;
- wire \wb_uart_dat_fromcpu[12] ;
- wire \wb_uart_dat_fromcpu[13] ;
- wire \wb_uart_dat_fromcpu[14] ;
- wire \wb_uart_dat_fromcpu[15] ;
- wire \wb_uart_dat_fromcpu[16] ;
- wire \wb_uart_dat_fromcpu[17] ;
- wire \wb_uart_dat_fromcpu[18] ;
- wire \wb_uart_dat_fromcpu[19] ;
- wire \wb_uart_dat_fromcpu[1] ;
- wire \wb_uart_dat_fromcpu[20] ;
- wire \wb_uart_dat_fromcpu[21] ;
- wire \wb_uart_dat_fromcpu[22] ;
- wire \wb_uart_dat_fromcpu[23] ;
- wire \wb_uart_dat_fromcpu[24] ;
- wire \wb_uart_dat_fromcpu[25] ;
- wire \wb_uart_dat_fromcpu[26] ;
- wire \wb_uart_dat_fromcpu[27] ;
- wire \wb_uart_dat_fromcpu[28] ;
- wire \wb_uart_dat_fromcpu[29] ;
- wire \wb_uart_dat_fromcpu[2] ;
- wire \wb_uart_dat_fromcpu[30] ;
- wire \wb_uart_dat_fromcpu[31] ;
- wire \wb_uart_dat_fromcpu[3] ;
- wire \wb_uart_dat_fromcpu[4] ;
- wire \wb_uart_dat_fromcpu[5] ;
- wire \wb_uart_dat_fromcpu[6] ;
- wire \wb_uart_dat_fromcpu[7] ;
- wire \wb_uart_dat_fromcpu[8] ;
- wire \wb_uart_dat_fromcpu[9] ;
- wire \wb_uart_dat_tocpu[0] ;
- wire \wb_uart_dat_tocpu[10] ;
- wire \wb_uart_dat_tocpu[11] ;
- wire \wb_uart_dat_tocpu[12] ;
- wire \wb_uart_dat_tocpu[13] ;
- wire \wb_uart_dat_tocpu[14] ;
- wire \wb_uart_dat_tocpu[15] ;
- wire \wb_uart_dat_tocpu[16] ;
- wire \wb_uart_dat_tocpu[17] ;
- wire \wb_uart_dat_tocpu[18] ;
- wire \wb_uart_dat_tocpu[19] ;
- wire \wb_uart_dat_tocpu[1] ;
- wire \wb_uart_dat_tocpu[20] ;
- wire \wb_uart_dat_tocpu[21] ;
- wire \wb_uart_dat_tocpu[22] ;
- wire \wb_uart_dat_tocpu[23] ;
- wire \wb_uart_dat_tocpu[24] ;
- wire \wb_uart_dat_tocpu[25] ;
- wire \wb_uart_dat_tocpu[26] ;
- wire \wb_uart_dat_tocpu[27] ;
- wire \wb_uart_dat_tocpu[28] ;
- wire \wb_uart_dat_tocpu[29] ;
- wire \wb_uart_dat_tocpu[2] ;
- wire \wb_uart_dat_tocpu[30] ;
- wire \wb_uart_dat_tocpu[31] ;
- wire \wb_uart_dat_tocpu[3] ;
- wire \wb_uart_dat_tocpu[4] ;
- wire \wb_uart_dat_tocpu[5] ;
- wire \wb_uart_dat_tocpu[6] ;
- wire \wb_uart_dat_tocpu[7] ;
- wire \wb_uart_dat_tocpu[8] ;
- wire \wb_uart_dat_tocpu[9] ;
- wire wb_uart_rst;
- wire \wb_uart_sel[0] ;
- wire \wb_uart_sel[1] ;
- wire \wb_uart_sel[2] ;
- wire \wb_uart_sel[3] ;
- wire wb_uart_stb;
- wire wb_uart_we;
 
  sky130_sram_2kbyte_1rw1r_32x512_8 dram_inst (.csb0(dram_csb0),
     .web0(dram_web0),
@@ -576,12 +470,6 @@ module user_project_wrapper (user_clock2,
     .vssd1(vssd1),
     .wb_clk_i(wb_clk_i),
     .wb_rst_i(wb_rst_i),
-    .wb_uart_ack(wb_uart_ack),
-    .wb_uart_clk(wb_uart_clk),
-    .wb_uart_cyc(wb_uart_cyc),
-    .wb_uart_rst(wb_uart_rst),
-    .wb_uart_stb(wb_uart_stb),
-    .wb_uart_we(wb_uart_we),
     .wbs_ack_o(wbs_ack_o),
     .wbs_cyc_i(wbs_cyc_i),
     .wbs_stb_i(wbs_stb_i),
@@ -663,9 +551,7 @@ module user_project_wrapper (user_clock2,
     \dram_wmask0[2] ,
     \dram_wmask0[1] ,
     \dram_wmask0[0] }),
-    .io_in({io_in[37],
-    io_in[36],
-    io_in[35],
+    .gpio_in({io_in[35],
     io_in[34],
     io_in[33],
     io_in[32],
@@ -688,20 +574,8 @@ module user_project_wrapper (user_clock2,
     io_in[15],
     io_in[14],
     io_in[13],
-    io_in[12],
-    io_in[11],
-    io_in[10],
-    io_in[9],
-    io_in[8],
-    io_in[7],
-    io_in[6],
-    io_in[5],
-    io_in[4],
-    io_in[3],
-    io_in[2],
-    io_in[1],
-    io_in[0]}),
-    .io_oeb({io_oeb[37],
+    io_in[12]}),
+    .gpio_oeb({io_oeb[37],
     io_oeb[36],
     io_oeb[35],
     io_oeb[34],
@@ -739,9 +613,7 @@ module user_project_wrapper (user_clock2,
     io_oeb[2],
     io_oeb[1],
     io_oeb[0]}),
-    .io_out({io_out[37],
-    io_out[36],
-    io_out[35],
+    .gpio_out({io_out[35],
     io_out[34],
     io_out[33],
     io_out[32],
@@ -764,19 +636,7 @@ module user_project_wrapper (user_clock2,
     io_out[15],
     io_out[14],
     io_out[13],
-    io_out[12],
-    io_out[11],
-    io_out[10],
-    io_out[9],
-    io_out[8],
-    io_out[7],
-    io_out[6],
-    io_out[5],
-    io_out[4],
-    io_out[3],
-    io_out[2],
-    io_out[1],
-    io_out[0]}),
+    io_out[12]}),
     .iram_addr0({\iram_addr0[8] ,
     \iram_addr0[7] ,
     \iram_addr0[6] ,
@@ -1241,106 +1101,6 @@ module user_project_wrapper (user_clock2,
     .user_irq({user_irq[2],
     user_irq[1],
     user_irq[0]}),
-    .wb_uart_adr({\wb_uart_adr[31] ,
-    \wb_uart_adr[30] ,
-    \wb_uart_adr[29] ,
-    \wb_uart_adr[28] ,
-    \wb_uart_adr[27] ,
-    \wb_uart_adr[26] ,
-    \wb_uart_adr[25] ,
-    \wb_uart_adr[24] ,
-    \wb_uart_adr[23] ,
-    \wb_uart_adr[22] ,
-    \wb_uart_adr[21] ,
-    \wb_uart_adr[20] ,
-    \wb_uart_adr[19] ,
-    \wb_uart_adr[18] ,
-    \wb_uart_adr[17] ,
-    \wb_uart_adr[16] ,
-    \wb_uart_adr[15] ,
-    \wb_uart_adr[14] ,
-    \wb_uart_adr[13] ,
-    \wb_uart_adr[12] ,
-    \wb_uart_adr[11] ,
-    \wb_uart_adr[10] ,
-    \wb_uart_adr[9] ,
-    \wb_uart_adr[8] ,
-    \wb_uart_adr[7] ,
-    \wb_uart_adr[6] ,
-    \wb_uart_adr[5] ,
-    \wb_uart_adr[4] ,
-    \wb_uart_adr[3] ,
-    \wb_uart_adr[2] ,
-    \wb_uart_adr[1] ,
-    \wb_uart_adr[0] }),
-    .wb_uart_dat_fromcpu({\wb_uart_dat_fromcpu[31] ,
-    \wb_uart_dat_fromcpu[30] ,
-    \wb_uart_dat_fromcpu[29] ,
-    \wb_uart_dat_fromcpu[28] ,
-    \wb_uart_dat_fromcpu[27] ,
-    \wb_uart_dat_fromcpu[26] ,
-    \wb_uart_dat_fromcpu[25] ,
-    \wb_uart_dat_fromcpu[24] ,
-    \wb_uart_dat_fromcpu[23] ,
-    \wb_uart_dat_fromcpu[22] ,
-    \wb_uart_dat_fromcpu[21] ,
-    \wb_uart_dat_fromcpu[20] ,
-    \wb_uart_dat_fromcpu[19] ,
-    \wb_uart_dat_fromcpu[18] ,
-    \wb_uart_dat_fromcpu[17] ,
-    \wb_uart_dat_fromcpu[16] ,
-    \wb_uart_dat_fromcpu[15] ,
-    \wb_uart_dat_fromcpu[14] ,
-    \wb_uart_dat_fromcpu[13] ,
-    \wb_uart_dat_fromcpu[12] ,
-    \wb_uart_dat_fromcpu[11] ,
-    \wb_uart_dat_fromcpu[10] ,
-    \wb_uart_dat_fromcpu[9] ,
-    \wb_uart_dat_fromcpu[8] ,
-    \wb_uart_dat_fromcpu[7] ,
-    \wb_uart_dat_fromcpu[6] ,
-    \wb_uart_dat_fromcpu[5] ,
-    \wb_uart_dat_fromcpu[4] ,
-    \wb_uart_dat_fromcpu[3] ,
-    \wb_uart_dat_fromcpu[2] ,
-    \wb_uart_dat_fromcpu[1] ,
-    \wb_uart_dat_fromcpu[0] }),
-    .wb_uart_dat_tocpu({\wb_uart_dat_tocpu[31] ,
-    \wb_uart_dat_tocpu[30] ,
-    \wb_uart_dat_tocpu[29] ,
-    \wb_uart_dat_tocpu[28] ,
-    \wb_uart_dat_tocpu[27] ,
-    \wb_uart_dat_tocpu[26] ,
-    \wb_uart_dat_tocpu[25] ,
-    \wb_uart_dat_tocpu[24] ,
-    \wb_uart_dat_tocpu[23] ,
-    \wb_uart_dat_tocpu[22] ,
-    \wb_uart_dat_tocpu[21] ,
-    \wb_uart_dat_tocpu[20] ,
-    \wb_uart_dat_tocpu[19] ,
-    \wb_uart_dat_tocpu[18] ,
-    \wb_uart_dat_tocpu[17] ,
-    \wb_uart_dat_tocpu[16] ,
-    \wb_uart_dat_tocpu[15] ,
-    \wb_uart_dat_tocpu[14] ,
-    \wb_uart_dat_tocpu[13] ,
-    \wb_uart_dat_tocpu[12] ,
-    \wb_uart_dat_tocpu[11] ,
-    \wb_uart_dat_tocpu[10] ,
-    \wb_uart_dat_tocpu[9] ,
-    \wb_uart_dat_tocpu[8] ,
-    \wb_uart_dat_tocpu[7] ,
-    \wb_uart_dat_tocpu[6] ,
-    \wb_uart_dat_tocpu[5] ,
-    \wb_uart_dat_tocpu[4] ,
-    \wb_uart_dat_tocpu[3] ,
-    \wb_uart_dat_tocpu[2] ,
-    \wb_uart_dat_tocpu[1] ,
-    \wb_uart_dat_tocpu[0] }),
-    .wb_uart_sel({\wb_uart_sel[3] ,
-    \wb_uart_sel[2] ,
-    \wb_uart_sel[1] ,
-    \wb_uart_sel[0] }),
     .wbs_adr_i({wbs_adr_i[31],
     wbs_adr_i[30],
     wbs_adr_i[29],
@@ -1441,114 +1201,4 @@ module user_project_wrapper (user_clock2,
     wbs_sel_i[2],
     wbs_sel_i[1],
     wbs_sel_i[0]}));
- wbuart_wrap uart_inst (.clk_i(wb_clk_i),
-    .rst_i(wb_rst_i),
-    .uart_rx_i(io_in[12]),
-    .uart_tx_o(io_out[13]),
-    .vccd1(vccd1),
-    .vssd1(vssd1),
-    .wbs_ack_o(wb_uart_ack),
-    .wbs_cyc_i(wb_uart_cyc),
-    .wbs_stb_i(wb_uart_stb),
-    .wbs_we_i(wb_uart_we),
-    .wbs_adr_i({\wb_uart_adr[31] ,
-    \wb_uart_adr[30] ,
-    \wb_uart_adr[29] ,
-    \wb_uart_adr[28] ,
-    \wb_uart_adr[27] ,
-    \wb_uart_adr[26] ,
-    \wb_uart_adr[25] ,
-    \wb_uart_adr[24] ,
-    \wb_uart_adr[23] ,
-    \wb_uart_adr[22] ,
-    \wb_uart_adr[21] ,
-    \wb_uart_adr[20] ,
-    \wb_uart_adr[19] ,
-    \wb_uart_adr[18] ,
-    \wb_uart_adr[17] ,
-    \wb_uart_adr[16] ,
-    \wb_uart_adr[15] ,
-    \wb_uart_adr[14] ,
-    \wb_uart_adr[13] ,
-    \wb_uart_adr[12] ,
-    \wb_uart_adr[11] ,
-    \wb_uart_adr[10] ,
-    \wb_uart_adr[9] ,
-    \wb_uart_adr[8] ,
-    \wb_uart_adr[7] ,
-    \wb_uart_adr[6] ,
-    \wb_uart_adr[5] ,
-    \wb_uart_adr[4] ,
-    \wb_uart_adr[3] ,
-    \wb_uart_adr[2] ,
-    \wb_uart_adr[1] ,
-    \wb_uart_adr[0] }),
-    .wbs_dat_i({\wb_uart_dat_fromcpu[31] ,
-    \wb_uart_dat_fromcpu[30] ,
-    \wb_uart_dat_fromcpu[29] ,
-    \wb_uart_dat_fromcpu[28] ,
-    \wb_uart_dat_fromcpu[27] ,
-    \wb_uart_dat_fromcpu[26] ,
-    \wb_uart_dat_fromcpu[25] ,
-    \wb_uart_dat_fromcpu[24] ,
-    \wb_uart_dat_fromcpu[23] ,
-    \wb_uart_dat_fromcpu[22] ,
-    \wb_uart_dat_fromcpu[21] ,
-    \wb_uart_dat_fromcpu[20] ,
-    \wb_uart_dat_fromcpu[19] ,
-    \wb_uart_dat_fromcpu[18] ,
-    \wb_uart_dat_fromcpu[17] ,
-    \wb_uart_dat_fromcpu[16] ,
-    \wb_uart_dat_fromcpu[15] ,
-    \wb_uart_dat_fromcpu[14] ,
-    \wb_uart_dat_fromcpu[13] ,
-    \wb_uart_dat_fromcpu[12] ,
-    \wb_uart_dat_fromcpu[11] ,
-    \wb_uart_dat_fromcpu[10] ,
-    \wb_uart_dat_fromcpu[9] ,
-    \wb_uart_dat_fromcpu[8] ,
-    \wb_uart_dat_fromcpu[7] ,
-    \wb_uart_dat_fromcpu[6] ,
-    \wb_uart_dat_fromcpu[5] ,
-    \wb_uart_dat_fromcpu[4] ,
-    \wb_uart_dat_fromcpu[3] ,
-    \wb_uart_dat_fromcpu[2] ,
-    \wb_uart_dat_fromcpu[1] ,
-    \wb_uart_dat_fromcpu[0] }),
-    .wbs_dat_o({\wb_uart_dat_tocpu[31] ,
-    \wb_uart_dat_tocpu[30] ,
-    \wb_uart_dat_tocpu[29] ,
-    \wb_uart_dat_tocpu[28] ,
-    \wb_uart_dat_tocpu[27] ,
-    \wb_uart_dat_tocpu[26] ,
-    \wb_uart_dat_tocpu[25] ,
-    \wb_uart_dat_tocpu[24] ,
-    \wb_uart_dat_tocpu[23] ,
-    \wb_uart_dat_tocpu[22] ,
-    \wb_uart_dat_tocpu[21] ,
-    \wb_uart_dat_tocpu[20] ,
-    \wb_uart_dat_tocpu[19] ,
-    \wb_uart_dat_tocpu[18] ,
-    \wb_uart_dat_tocpu[17] ,
-    \wb_uart_dat_tocpu[16] ,
-    \wb_uart_dat_tocpu[15] ,
-    \wb_uart_dat_tocpu[14] ,
-    \wb_uart_dat_tocpu[13] ,
-    \wb_uart_dat_tocpu[12] ,
-    \wb_uart_dat_tocpu[11] ,
-    \wb_uart_dat_tocpu[10] ,
-    \wb_uart_dat_tocpu[9] ,
-    \wb_uart_dat_tocpu[8] ,
-    \wb_uart_dat_tocpu[7] ,
-    \wb_uart_dat_tocpu[6] ,
-    \wb_uart_dat_tocpu[5] ,
-    \wb_uart_dat_tocpu[4] ,
-    \wb_uart_dat_tocpu[3] ,
-    \wb_uart_dat_tocpu[2] ,
-    \wb_uart_dat_tocpu[1] ,
-    \wb_uart_dat_tocpu[0] }),
-    .wbs_sel_i({\wb_uart_sel[3] ,
-    \wb_uart_sel[2] ,
-    \wb_uart_sel[1] ,
-    \wb_uart_sel[0] }));
 endmodule

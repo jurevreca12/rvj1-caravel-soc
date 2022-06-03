@@ -89,17 +89,6 @@ module user_project_wrapper #(
     wire [`DRAM_ADDR_WIDTH_WORDS-1:0] dram_addr0;
     wire [31:0] dram_din0, dram_dout0;
     
-    wire		 wb_uart_clk;
-	wire		 wb_uart_rst;
-    wire         wb_uart_stb;
-    wire         wb_uart_cyc;
-    wire         wb_uart_we;
-    wire [3:0]   wb_uart_sel;
-    wire [31:0]  wb_uart_dat_tocpu;
-    wire [31:0]  wb_uart_dat_fromcpu;
-    wire [31:0]  wb_uart_adr;
-    wire         wb_uart_ack;
-                                                         
 
     sky130_sram_2kbyte_1rw1r_32x512_8 iram_inst (
 					`ifdef USE_POWER_PINS
@@ -127,9 +116,9 @@ module user_project_wrapper #(
 			.la_data_out	(la_data_out),
 			.la_oenb		(la_oenb),
 
-			.io_in			(io_in),
-			.io_out			(io_out),
-			.io_oeb			(io_oeb),
+			.gpio_in		(io_in[36-1:12]),
+			.gpio_out		(io_out[36-1:12]),
+			.gpio_oeb		(io_oeb),
 
 			.user_irq		(user_irq),
 		    
@@ -143,17 +132,6 @@ module user_project_wrapper #(
 		    .wbs_adr_i		(wbs_adr_i),
 		    .wbs_ack_o		(wbs_ack_o),
 		    .wbs_dat_o		(wbs_dat_o),
-		    
-		    .wb_uart_clk		 (wb_uart_clk),
-		    .wb_uart_rst		 (wb_uart_rst),
-		    .wb_uart_stb		 (wb_uart_stb),
-		    .wb_uart_cyc		 (wb_uart_cyc),
-		    .wb_uart_we			 (wb_uart_we),
-		    .wb_uart_sel		 (wb_uart_sel),
-		    .wb_uart_dat_fromcpu (wb_uart_dat_fromcpu),
-		    .wb_uart_adr		 (wb_uart_adr),
-		    .wb_uart_ack		 (wb_uart_ack),
-		    .wb_uart_dat_tocpu	 (wb_uart_dat_tocpu),
 		    
 		    .iram_clk0		(iram_clk0),
 		    .iram_csb0		(iram_csb0),
@@ -186,28 +164,6 @@ module user_project_wrapper #(
                             .addr0  (dram_addr0),
                             .din0   (dram_din0),
                             .dout0  (dram_dout0));
-
-
-
-	wbuart_wrap uart_inst (
-						`ifdef USE_POWER_PINS
-						    .vccd1(vccd1),	// User area 1 1.8V power
-						    .vssd1(vssd1),	// User area 1 digital ground
-						`endif
-						   	.clk_i     (wb_clk_i),
-							.rst_i     (wb_rst_i),
-							.wbs_cyc_i (wb_uart_cyc),
-							.wbs_stb_i (wb_uart_stb),
-							.wbs_we_i  (wb_uart_we),
-							.wbs_adr_i (wb_uart_adr),
-							.wbs_dat_i (wb_uart_dat_fromcpu),
-							.wbs_sel_i (wb_uart_sel),
-							.wbs_ack_o (wb_uart_ack),
-							.wbs_dat_o (wb_uart_dat_tocpu),
-							
-							.uart_rx_i (io_in[12]),
-							.uart_tx_o (io_out[13])			
-				);
 
 
 endmodule	// user_project_wrapper

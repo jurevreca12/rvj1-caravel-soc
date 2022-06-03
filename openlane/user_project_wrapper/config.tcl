@@ -58,8 +58,7 @@ set ::env(CLOCK_PERIOD) "10"
 set ::env(FP_PDN_MACRO_HOOKS) "\
 	iram_inst vccd1 vssd1, \
 	rvj1_soc vccd1 vssd1, \
-	dram_inst vccd1 vssd1, \
-	uart_inst vccd1 vssd1" 
+	dram_inst vccd1 vssd1"
 
 ### Macro Placement
 set ::env(MACRO_PLACEMENT_CFG) $script_dir/macro.cfg
@@ -78,17 +77,14 @@ set ::env(GLB_RT_OBS)  "met1 1100  800  1783.1  1216.54, \
 ### Black-box verilog and views
 set ::env(VERILOG_FILES_BLACKBOX) "\
 	$::env(PDK_ROOT)/$::env(PDK)/libs.ref/sky130_sram_macros/verilog/sky130_sram_2kbyte_1rw1r_32x512_8.v \
-    $script_dir/../../verilog/rtl/wbuart_wrap.v \
 	$script_dir/../../verilog/rtl/rvj1_caravel_soc.v"
 
 set ::env(EXTRA_LEFS) "\
 	$::env(PDK_ROOT)/$::env(PDK)/libs.ref/sky130_sram_macros/lef/sky130_sram_2kbyte_1rw1r_32x512_8.lef \
-    $script_dir/../../lef/wbuart_wrap.lef \
 	$script_dir/../../lef/rvj1_caravel_soc.lef"
 
 set ::env(EXTRA_GDS_FILES) "\
 	$::env(PDK_ROOT)/$::env(PDK)/libs.ref/sky130_sram_macros/gds/sky130_sram_2kbyte_1rw1r_32x512_8.gds \
-    $script_dir/../../gds/wbuart_wrap.gds \
 	$script_dir/../../gds/rvj1_caravel_soc.gds"
 
 #set ::env(GLB_RT_MAXLAYER) 6
