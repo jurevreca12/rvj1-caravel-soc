@@ -40,6 +40,9 @@ set ::env(MAGIC_DRC_USE_GDS) 0
 set ::env(RUN_MAGIC_DRC) 0
 set ::env(QUIT_ON_MAGIC_DRC) 0
 
+set ::env(FP_PDN_CORE_RING_VOFFSET) 12.45
+set ::env(FP_PDN_CORE_RING_HOFFSET) 12.45
+
 set ::env(VERILOG_INCLUDE_DIRS) [glob  $::env(CARAVEL_ROOT)/verilog/rtl/ ]
 ## Source Verilog Files
 set ::env(VERILOG_FILES) "\
