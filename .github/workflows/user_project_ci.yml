@@ -137,11 +137,11 @@ jobs:
           make openlane
           make simenv
 
-      - name: Harden using Openlane
-        run: |
-          make rvj1_caravel_soc
-          make user_project_wrapper
-
+#      - name: Harden using Openlane
+#        run: |
+#          make rvj1_caravel_soc
+#          make user_project_wrapper
+#
       - name: Run DV RTL tests
         run: |
           make verify-adding-rtl 
