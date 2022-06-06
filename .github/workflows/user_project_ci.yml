@@ -118,6 +118,9 @@ jobs:
       - name: Export OPENLANE ROOT
         run: echo "OPENLANE_ROOT=/home/runner/work/openlane" >> $GITHUB_ENV
 
+      - name: Export USER_PROJECT_VERILOG
+        run: echo "USER_PROJECT_VERILOG=/home/runner/work/rvj1_caravel_soc/verilog/" >> $GITHUB_ENV
+
       - name: Download PDK Tarball
         uses: actions/download-artifact@v2
         with:
@@ -137,11 +140,11 @@ jobs:
           make openlane
           make simenv
 
-#      - name: Harden using Openlane
-#        run: |
-#          make rvj1_caravel_soc
-#          make user_project_wrapper
-#
+      - name: Harden using Openlane
+        run: |
+          make rvj1_caravel_soc
+          make user_project_wrapper
+
       - name: Run DV RTL tests
         run: |
           make verify-adding-rtl 
