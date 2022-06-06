@@ -23,7 +23,7 @@ jobs:
         run: echo "PDK_ROOT=/home/runner/work/pdk" >> $GITHUB_ENV
       
       - name: Export OPENLANE ROOT
-        run: echo "OPENLANE_ROOT=/home/runner/work/caravel_user_project/openlane" >> $GITHUB_ENV
+        run: echo "OPENLANE_ROOT=/home/runner/work/rvj1_caravel_soc/openlane" >> $GITHUB_ENV
 
       - name: Install dependencies
         run: |
@@ -97,7 +97,7 @@ jobs:
         with:
           name: error
           path: |
-            /home/runner/work/caravel_user_project/caravel_user_project/mpw_precheck_result/logs/*
+            /home/runner/work/rvj1_caravel_soc/rvj1_caravel_soc/mpw_precheck_result/logs/*
 
   user_project_flow:
     timeout-minutes: 720
@@ -116,7 +116,7 @@ jobs:
         run: echo "PDK_ROOT=/home/runner/work/pdk" >> $GITHUB_ENV
 
       - name: Export OPENLANE ROOT
-        run: echo "OPENLANE_ROOT=/home/runner/work/caravel_user_project/openlane" >> $GITHUB_ENV
+        run: echo "OPENLANE_ROOT=/home/runner/work/rvj1_caravel_soc/openlane" >> $GITHUB_ENV
 
       - name: Download PDK Tarball
         uses: actions/download-artifact@v2
