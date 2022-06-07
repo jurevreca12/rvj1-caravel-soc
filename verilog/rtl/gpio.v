@@ -45,11 +45,6 @@ module	gpio #(
     wire wb_cyc, wb_stb;
 	reg [24-1:0] gpio_in_ff;
 
-	wire debug;
-
-	assign debug = wbs_adr_i & ADDR_LO_MASK;
-
-
 	// WISHBONE LOGIC
     assign wb_cyc = wbs_cyc_i & ((wbs_adr_i & ADDR_HI_MASK) == BASE_ADDR);
     assign wb_stb = wbs_stb_i & ((wbs_adr_i & ADDR_HI_MASK) == BASE_ADDR);
