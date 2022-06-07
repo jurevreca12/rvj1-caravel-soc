@@ -120,16 +120,34 @@ module rvj1_caravel_soc #(
     wire         wbs2_ack;
     wire [31:0]  wbs2_dat_fromwb;
 	
-	wire	     wb_gpio_clk;
-	wire		 wb_gpio_rst;
-	wire         wb_gpio_stb;
-	wire         wb_gpio_cyc;
-	wire         wb_gpio_we;
-	wire [3:0]   wb_gpio_sel;
-	wire [31:0]  wb_gpio_dat_fromcpu;
-	wire [31:0]  wb_gpio_adr;
-	wire         wb_gpio_ack;
-	wire [31:0]  wb_gpio_dat_tocpu;
+	wire	     wb_rvj1_tomux_clk;
+	wire		 wb_rvj1_tomux_rst;
+	wire         wb_rvj1_tomux_stb;
+	wire         wb_rvj1_tomux_cyc;
+	wire         wb_rvj1_tomux_we;
+	wire [3:0]   wb_rvj1_tomux_sel;
+	wire [31:0]  wb_rvj1_tomux_dat_fromcpu;
+	wire [31:0]  wb_rvj1_tomux_adr;
+	wire         wb_rvj1_tomux_ack;
+	wire [31:0]  wb_rvj1_tomux_dat_tocpu;
+	
+	wire         wb_rvj1_gpio_stb;
+	wire         wb_rvj1_gpio_cyc;
+	wire         wb_rvj1_gpio_we;
+	wire [3:0]   wb_rvj1_gpio_sel;
+	wire [31:0]  wb_rvj1_gpio_dat_fromcpu;
+	wire [31:0]  wb_rvj1_gpio_adr;
+	wire         wb_rvj1_gpio_ack;
+	wire [31:0]  wb_rvj1_gpio_dat_tocpu;
+	
+	wire         wb_rvj1_timer_stb;
+	wire         wb_rvj1_timer_cyc;
+	wire         wb_rvj1_timer_we;
+	wire [3:0]   wb_rvj1_timer_sel;
+	wire [31:0]  wb_rvj1_timer_dat_fromcpu;
+	wire [31:0]  wb_rvj1_timer_adr;
+	wire         wb_rvj1_timer_ack;
+	wire [31:0]  wb_rvj1_timer_dat_tocpu;
 
 	assign jedro_1_rstn = la_data_in[1];
 	assign sel_wb = la_data_in[0];
@@ -264,16 +282,61 @@ module rvj1_caravel_soc #(
                                 .ram_din0    (dram_din0),
                                 .ram_dout0   (dram_dout0),
 
-								.wbm_clk_o   (wb_gpio_clk),
-								.wbm_rst_o   (wb_gpio_rst),
-								.wbm_stb_o   (wb_gpio_stb),
-								.wbm_cyc_o   (wb_gpio_cyc),
-								.wbm_we_o    (wb_gpio_we),
-								.wbm_sel_o   (wb_gpio_sel),
-								.wbm_dat_o   (wb_gpio_dat_fromcpu),
-								.wbm_adr_o   (wb_gpio_adr),
-								.wbm_ack_i   (wb_gpio_ack),
-								.wbm_dat_i   (wb_gpio_dat_tocpu));
+								.wbm_clk_o   (wb_rvj1_tomux_clk),
+								.wbm_rst_o   (wb_rvj1_tomux_rst),
+								.wbm_stb_o   (wb_rvj1_tomux_stb),
+								.wbm_cyc_o   (wb_rvj1_tomux_cyc),
+								.wbm_we_o    (wb_rvj1_tomux_we),
+								.wbm_sel_o   (wb_rvj1_tomux_sel),
+								.wbm_dat_o   (wb_rvj1_tomux_dat_fromcpu),
+								.wbm_adr_o   (wb_rvj1_tomux_adr),
+								.wbm_ack_i   (wb_rvj1_tomux_ack),
+								.wbm_dat_i   (wb_rvj1_tomux_dat_tocpu));
+    
+	wishbone_mux #(.BASE_ADDR_0(RVJ1_GPIO_BASE_ADDR),
+                   .ADDR_WIDTH_0(2),
+                   .BASE_ADDR_1(RVJ1_TIMER_BASE_ADDR),
+                   .ADDR_WIDTH_1(2)) wb_mux_rvj1_internal (
+						`ifdef USE_POWER_PINS
+							.vccd1(vccd1),	// User area 1 1.8V power
+							.vssd1(vssd1),	// User area 1 digital ground
+						`endif
+
+                            .wbs_stb_i (wb_rvj1_tomux_stb),
+                            .wbs_cyc_i (wb_rvj1_tomux_cyc),
+                            .wbs_we_i  (wb_rvj1_tomux_we),
+                            .wbs_sel_i (wb_rvj1_tomux_sel),
+                            .wbs_dat_i (wb_rvj1_tomux_dat_fromcpu),
+                            .wbs_adr_i (wb_rvj1_tomux_adr),
+                            .wbs_ack_o (wb_rvj1_tomux_ack),
+                            .wbs_dat_o (wb_rvj1_tomux_tocpu),
+
+                            .wbs0_stb_o (wb_rvj1_gpio_stb),
+                            .wbs0_cyc_o (wb_rvj1_gpio_cyc),
+                            .wbs0_we_o  (wb_rvj1_gpio_we),
+                            .wbs0_sel_o (wb_rvj1_gpio_sel),
+                            .wbs0_dat_o (wb_rvj1_gpio_dat_fromcpu),
+                            .wbs0_adr_o (wb_rvj1_gpio_adr),
+                            .wbs0_ack_i (wb_rvj1_gpio_ack),
+                            .wbs0_dat_i (wb_rvj1_gpio_dat_tocpu),
+
+                            .wbs1_stb_o (wb_rvj1_timer_stb),
+                            .wbs1_cyc_o (wb_rvj1_timer_cyc),
+                            .wbs1_we_o  (wb_rvj1_timer_we),
+                            .wbs1_sel_o (wb_rvj1_timer_sel),
+                            .wbs1_dat_o (wb_rvj1_timer_dat_fromcpu),
+                            .wbs1_adr_o (wb_rvj1_timer_adr),
+                            .wbs1_ack_i (wb_rvj1_timer_ack),
+                            .wbs1_dat_i (wb_rvj1_timer_dat_tocpu),
+
+                            .wbs2_stb_o (),
+                            .wbs2_cyc_o (),
+                            .wbs2_we_o  (),
+                            .wbs2_sel_o (),
+                            .wbs2_dat_o (),
+                            .wbs2_adr_o (),
+                            .wbs2_ack_i (1'b0),
+                            .wbs2_dat_i (0));
 
 
 	gpio gpio_inst (	
@@ -284,20 +347,37 @@ module rvj1_caravel_soc #(
 						.clk_i (wb_clk_i),
 						.rst_i (wb_rst_i),
 
-						.wbs_cyc_i (wb_gpio_cyc),
-						.wbs_stb_i (wb_gpio_stb),
-						.wbs_we_i  (wb_gpio_we),
-						.wbs_adr_i (wb_gpio_adr),
-						.wbs_dat_i (wb_gpio_dat_fromcpu),
-					    .wbs_sel_i (wb_gpio_sel),
-					    .wbs_ack_o (wb_gpio_ack),
-						.wbs_dat_o (wb_gpio_dat_tocpu),
+						.wbs_cyc_i (wb_rvj1_gpio_cyc),
+						.wbs_stb_i (wb_rvj1_gpio_stb),
+						.wbs_we_i  (wb_rvj1_gpio_we),
+						.wbs_adr_i (wb_rvj1_gpio_adr),
+						.wbs_dat_i (wb_rvj1_gpio_dat_fromcpu),
+					    .wbs_sel_i (wb_rvj1_gpio_sel),
+					    .wbs_ack_o (wb_rvj1_gpio_ack),
+						.wbs_dat_o (wb_rvj1_gpio_dat_tocpu),
 
 						.gpio_in   (gpio_in),
 						.gpio_out  (gpio_out),
 						.gpio_oeb  (gpio_oeb));
 
-			
+
+	timer timer_inst (
+					`ifdef USE_POWER_PINS
+						.vccd1(vccd1),	// User area 1 1.8V power
+						.vssd1(vssd1),	// User area 1 digital ground
+					`endif
+						.clk_i (wb_clk_i),
+						.rst_i (wb_rst_i),
+
+						.wbs_cyc_i (wb_rvj1_timer_cyc),
+						.wbs_stb_i (wb_rvj1_timer_stb),
+						.wbs_we_i  (wb_rvj1_timer_we),
+						.wbs_adr_i (wb_rvj1_timer_adr),
+						.wbs_dat_i (wb_rvj1_timer_dat_fromcpu),
+					    .wbs_sel_i (wb_rvj1_timer_sel),
+					    .wbs_ack_o (wb_rvj1_timer_ack),
+						.wbs_dat_o (wb_rvj1_timer_dat_tocpu));
+	
 
 endmodule
 

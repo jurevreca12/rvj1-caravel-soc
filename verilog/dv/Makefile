@@ -20,7 +20,7 @@
 .SILENT: clean all
 
 
-PATTERNS = adding instr_ram_rw data_ram_rw uart_tx
+PATTERNS = adding instr_ram_rw data_ram_rw gpio timer
 
 all:  ${PATTERNS}
 

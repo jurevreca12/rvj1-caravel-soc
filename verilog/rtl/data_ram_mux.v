@@ -24,7 +24,7 @@
 
 module data_ram_mux #(
     parameter RAM_ADDR_WIDTH_WORDS = 8,
-    parameter BASE_ADDR = 32'h3000_4000
+    parameter BASE_ADDR_RAM = 32'h3000_4000
 )
 (
 `ifdef USE_POWER_PINS
@@ -97,7 +97,7 @@ module data_ram_mux #(
 	/****************************
 	* WISHBONE SLAVE - RAM ACKING
 	****************************/
-    assign ram_cs = sel_wb && wbs_stb_i && wbs_cyc_i && ((wbs_adr_i & ADDR_HI_MASK) == BASE_ADDR) && !wb_rst_i;
+    assign ram_cs = sel_wb && wbs_stb_i && wbs_cyc_i && ((wbs_adr_i & ADDR_HI_MASK) == BASE_ADDR_RAM) && !wb_rst_i;
     always @(negedge wb_clk_i) begin
         if (wb_rst_i) begin
             ram_cs_r <= 0;
