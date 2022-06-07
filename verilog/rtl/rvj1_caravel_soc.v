@@ -20,7 +20,9 @@ module rvj1_caravel_soc #(
     parameter IRAM_BASE_ADDR = `IRAM_BASE_ADDR,
     parameter IRAM_ADDR_WIDTH_WORDS = `IRAM_ADDR_WIDTH_WORDS,
     parameter DRAM_BASE_ADDR = `DRAM_BASE_ADDR,
-    parameter DRAM_ADDR_WIDTH_WORDS = `DRAM_ADDR_WIDTH_WORDS
+    parameter DRAM_ADDR_WIDTH_WORDS = `DRAM_ADDR_WIDTH_WORDS,
+	parameter RVJ1_GPIO_BASE_ADDR = `RVJ1_GPIO_BASE_ADDR,
+	parameter RVJ1_TIMER_BASE_ADDR = `RVJ1_TIMER_BASE_ADDR
 )(
 `ifdef USE_POWER_PINS
     inout vccd1,	// User area 1 1.8V supply
@@ -247,7 +249,7 @@ module rvj1_caravel_soc #(
                                                                    
                                                                    
 	data_ram_mux #(.RAM_ADDR_WIDTH_WORDS(DRAM_ADDR_WIDTH_WORDS),
-                   .BASE_ADDR(DRAM_BASE_ADDR)) dram_mux_inst(
+                   .BASE_ADDR_RAM(DRAM_BASE_ADDR)) dram_mux_inst(
 							`ifdef USE_POWER_PINS
 								.vccd1(vccd1),	// User area 1 1.8V power
 								.vssd1(vssd1),	// User area 1 digital ground
@@ -309,7 +311,7 @@ module rvj1_caravel_soc #(
                             .wbs_dat_i (wb_rvj1_tomux_dat_fromcpu),
                             .wbs_adr_i (wb_rvj1_tomux_adr),
                             .wbs_ack_o (wb_rvj1_tomux_ack),
-                            .wbs_dat_o (wb_rvj1_tomux_tocpu),
+                            .wbs_dat_o (wb_rvj1_tomux_dat_tocpu),
 
                             .wbs0_stb_o (wb_rvj1_gpio_stb),
                             .wbs0_cyc_o (wb_rvj1_gpio_cyc),

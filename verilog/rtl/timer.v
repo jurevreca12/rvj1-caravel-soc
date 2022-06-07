@@ -30,7 +30,7 @@ module	timer #(
 		input	wire [31:0]	wbs_dat_i,
 		input	wire [3:0]	wbs_sel_i,
 		output	reg		    wbs_ack_o,
-		output	reg [31:0]	wbs_dat_o,	
+		output	reg [31:0]	wbs_dat_o	
 	);
     localparam ADDR_WIDTH = 1;
 	localparam ADDR_LO_MASK = (1 << ADDR_WIDTH) - 1;
@@ -47,10 +47,10 @@ module	timer #(
 			wbs_ack_o <= 1'b0;
 			wbs_dat_o <= 32'b0;
 		end
-		else if (wb_cyc && wb_stb && wbs_we_i && ~wbs_ack_o && (wbs_adr_i & ADDR_LO_MASK) == BASE_ADDR) begin
+		else if (wb_cyc && wb_stb && wbs_we_i && ~wbs_ack_o) begin
 			wbs_ack_o <= 1'b1;
 		end
-		else if (wb_cyc && wb_stb && ~wbs_we_i && ~wbs_ack_o && (wbs_adr_i & ADDR_LO_MASK) == BASE_ADDR) begin
+		else if (wb_cyc && wb_stb && ~wbs_we_i && ~wbs_ack_o) begin
 			wbs_ack_o <= 1'b1;
 			wbs_dat_o <= time_ff;	
 		end
@@ -64,7 +64,7 @@ module	timer #(
 		if (rst_i) 
 			time_ff <= 32'b0;
 		else begin
-			if (wb_cyc && wb_stb && wbs_we_i && ~wbs_ack_o && (wbs_adr_i & ADDR_LO_MASK) == BASE_ADDR) begin
+			if (wb_cyc && wb_stb && wbs_we_i && ~wbs_ack_o) begin
 				time_ff <= wbs_dat_i;
 			end
 			else begin

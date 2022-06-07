@@ -117,7 +117,7 @@ module data_ram_mux #(
 	/****************************
 	* IS CORE WRITE TO RAM LOGIC
 	****************************/
-	assign is_ram = (addr & ADDR_HI_MASK) == BASE_ADDR;
+	assign is_ram = (addr & ADDR_HI_MASK) == BASE_ADDR_RAM;
 	always@(posedge wb_clk_i) begin
 		if (wb_rst_i) was_ram <= 0;
 		else		  was_ram <= is_ram;

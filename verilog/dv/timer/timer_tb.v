@@ -9,7 +9,7 @@ module timer_tb;
 	reg power1, power2;
 	reg power3, power4;
 
-	wire timer;
+	wire gpio;
 	wire [37:0] mprj_io;
 	wire [7:0] mprj_io_0;
 	wire [24-1:0] timer_bits;
@@ -31,7 +31,7 @@ module timer_tb;
 		$dumpvars(0, timer_tb);
 
 		// Repeat cycles of 1000 clock edges as needed to complete testbench
-		repeat (140) begin
+		repeat (160) begin
 			repeat (1000) @(posedge clock);
 			// $display("+1000 cycles");
 		end
