@@ -22,6 +22,9 @@
 #define USER_INSTR_RAM_ADDR (0x30000000)
 #define user_instr_ram ((volatile uint32_t*) USER_INSTR_RAM_ADDR)
 
+#define USER_INSTR_RAM_ADDR_MACRO_B (0x30000800)
+#define user_instr_ram_macro_b ((volatile uint32_t*) USER_INSTR_RAM_ADDR_MACRO_B)
+
 void main()
 {
 	reg_spi_enable = 1;
@@ -74,6 +77,14 @@ void main()
 
 	for (int j=0; j < 4; j++) {
 		if (user_instr_ram[j] != j) flag = 1;
+	}
+
+	for (int i=0; i < 4; i++) {
+		user_instr_ram_macro_b[i] = i;
+	}	
+
+	for (int j=0; j < 4; j++) {
+		if (user_instr_ram_macro_b[j] != j) flag = 1;
 	}
 
 

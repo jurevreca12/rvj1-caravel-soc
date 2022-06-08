@@ -22,7 +22,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 module instr_ram_mux #(
-    parameter RAM_ADDR_WIDTH_WORDS = 9,
+    parameter RAM_ADDR_WIDTH_BYTES = 12,
     parameter BASE_ADDR = 32'h3000_0000
 )
 (
@@ -50,11 +50,11 @@ module instr_ram_mux #(
     output reg                             ram_csb0,   // active low chip select
     output reg                             ram_web0,   // active low write enable
     output reg  [3:0]                      ram_wmask0, // write (byte) mask
-    output reg  [RAM_ADDR_WIDTH_WORDS-1:0] ram_addr0,
+    output reg  [RAM_ADDR_WIDTH_BYTES-2-1:0] ram_addr0,
     output reg  [31:0]                     ram_din0,
     input  wire [31:0]                     ram_dout0
 );
-    localparam ADDR_LO_MASK = (1 << RAM_ADDR_WIDTH_WORDS) - 1;
+    localparam ADDR_LO_MASK = (1 << RAM_ADDR_WIDTH_BYTES) - 1;
     localparam ADDR_HI_MASK = 32'hffff_ffff - ADDR_LO_MASK; 
 
     wire ram_cs;
@@ -81,7 +81,7 @@ module instr_ram_mux #(
             ram_csb0   = !ram_cs_r;
             ram_web0   = ~wbs_we_i;
             ram_wmask0 = wbs_sel_i;
-            ram_addr0  = wbs_adr_i[RAM_ADDR_WIDTH_WORDS-1+2:2];
+            ram_addr0  = wbs_adr_i[RAM_ADDR_WIDTH_BYTES-1:2];
             ram_din0   = wbs_dat_i;
             wbs_dat_o  = ram_dout0;
             wbs_ack_o  = ram_wbs_ack_r & ram_cs;
@@ -91,7 +91,7 @@ module instr_ram_mux #(
             ram_csb0   = 0;  // active low
             ram_web0   = 1;  // we are only reading
             ram_wmask0 = 0;  // is irrelevant for reading
-            ram_addr0  = addr[RAM_ADDR_WIDTH_WORDS-1+2:2];
+            ram_addr0  = addr[RAM_ADDR_WIDTH_BYTES-1:2];
             ram_din0   = 0;
 			wbs_dat_o  = 0;
 			wbs_ack_o  = 0;

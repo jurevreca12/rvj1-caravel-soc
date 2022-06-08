@@ -79,10 +79,10 @@ module user_project_wrapper #(
     output [2:0] user_irq
 );
 
-    wire iram_clk0, iram_csb0, iram_web0;
+    wire iram_clk0, iram_csb0_A, iram_csb0_B, iram_web0;
     wire [3:0] iram_wmask0;
-    wire [`IRAM_ADDR_WIDTH_WORDS-1:0] iram_addr0;
-    wire [31:0] iram_din0, iram_dout0;
+    wire [`IRAM_ADDR_WIDTH_WORDS_PER_MACRO-1:0] iram_addr0;
+    wire [31:0] iram_din0, iram_dout0_A, iram_dout0_B;
 
     wire dram_clk0, dram_csb0, dram_web0;
     wire [3:0]  dram_wmask0;
@@ -90,20 +90,34 @@ module user_project_wrapper #(
     wire [31:0] dram_din0, dram_dout0;
     
 
-    sky130_sram_2kbyte_1rw1r_32x512_8 iram_inst (
+    sky130_sram_2kbyte_1rw1r_32x512_8 iram_inst_A (
 					`ifdef USE_POWER_PINS
 					   	.vccd1(vccd1),	// User area 1 1.8V power
 						.vssd1(vssd1),	// User area 1 digital ground
 					`endif
 
     					.clk0   (iram_clk0),
-                        .csb0   (iram_csb0),
+                        .csb0   (iram_csb0_A),
                         .web0   (iram_web0),
                         .wmask0 (iram_wmask0),
                         .addr0  (iram_addr0),
                         .din0   (iram_din0),
-                        .dout0  (iram_dout0));                                             
+                        .dout0  (iram_dout0_A));                                             
+    
+	sky130_sram_2kbyte_1rw1r_32x512_8 iram_inst_B (
+					`ifdef USE_POWER_PINS
+					   	.vccd1(vccd1),	// User area 1 1.8V power
+						.vssd1(vssd1),	// User area 1 digital ground
+					`endif
 
+    					.clk0   (iram_clk0),
+                        .csb0   (iram_csb0_B),
+                        .web0   (iram_web0),
+                        .wmask0 (iram_wmask0),
+                        .addr0  (iram_addr0),
+                        .din0   (iram_din0),
+                        .dout0  (iram_dout0_B));
+ 
 
 	rvj1_caravel_soc rvj1_soc (
 		`ifdef USE_POWER_PINS
@@ -134,12 +148,14 @@ module user_project_wrapper #(
 		    .wbs_dat_o		(wbs_dat_o),
 		    
 		    .iram_clk0		(iram_clk0),
-		    .iram_csb0		(iram_csb0),
+		    .iram_csb0_A	(iram_csb0_A),
+			.iram_csb0_B	(iram_csb0_B),
 			.iram_web0		(iram_web0),
 			.iram_wmask0	(iram_wmask0),
 			.iram_addr0		(iram_addr0),
 			.iram_din0		(iram_din0),
-			.iram_dout0		(iram_dout0),
+			.iram_dout0_A	(iram_dout0_A),
+			.iram_dout0_B	(iram_dout0_B),
 			
 			.dram_clk0		(dram_clk0),
 			.dram_csb0		(dram_csb0),

@@ -1,17 +1,3 @@
-// SPDX-FileCopyrightText: 2020 Efabless Corporation
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-// SPDX-License-Identifier: Apache-2.0
 `include "inc/rvj1_defines.v"
 
 `default_nettype none
@@ -19,6 +5,7 @@ module rvj1_caravel_soc #(
     parameter JEDRO_1_BOOT_ADDR = `JEDRO_1_BOOT_ADDR,
     parameter IRAM_BASE_ADDR = `IRAM_BASE_ADDR,
     parameter IRAM_ADDR_WIDTH_WORDS = `IRAM_ADDR_WIDTH_WORDS,
+    parameter IRAM_ADDR_WIDTH_WORDS_PER_MACRO = `IRAM_ADDR_WIDTH_WORDS_PER_MACRO,
     parameter DRAM_BASE_ADDR = `DRAM_BASE_ADDR,
     parameter DRAM_ADDR_WIDTH_WORDS = `DRAM_ADDR_WIDTH_WORDS,
 	parameter RVJ1_GPIO_BASE_ADDR = `RVJ1_GPIO_BASE_ADDR,
@@ -56,12 +43,14 @@ module rvj1_caravel_soc #(
     output [31:0] wbs_dat_o,
     
     output iram_clk0, 
-    output iram_csb0, 
+    output iram_csb0_A,
+	output iram_csb0_B, 
     output iram_web0,
     output [3:0] iram_wmask0,
-    output [IRAM_ADDR_WIDTH_WORDS-1:0] iram_addr0,
-    output  [31:0] iram_din0, 
-    input [31:0] iram_dout0,
+    output [IRAM_ADDR_WIDTH_WORDS_PER_MACRO-1:0] iram_addr0,
+    output [31:0] iram_din0, 
+    input  [31:0] iram_dout0_A,
+	input  [31:0] iram_dout0_B,
 
     output dram_clk0, 
     output dram_csb0, 
@@ -86,6 +75,9 @@ module rvj1_caravel_soc #(
 
     wire [31:0]  cpu2imux_rdata;
     wire [31:0]  cpu2imux_addr;
+	wire [31:0]  iram_dout0;
+	wire		 iram_csb0; 
+	wire [IRAM_ADDR_WIDTH_WORDS-1:0] iram_addr0_internal;
 
     wire [3:0]   cpu2dmux_we;
     wire         cpu2dmux_stb;
@@ -202,7 +194,7 @@ module rvj1_caravel_soc #(
                             .wbs2_dat_i (0));
                             
                             
-    instr_ram_mux #(.RAM_ADDR_WIDTH_WORDS(IRAM_ADDR_WIDTH_WORDS),
+    instr_ram_mux #(.RAM_ADDR_WIDTH_BYTES(IRAM_ADDR_WIDTH_BYTES),
                     .BASE_ADDR(IRAM_BASE_ADDR)) iram_mux_inst (
 							`ifdef USE_POWER_PINS
 								.vccd1(vccd1),	// User area 1 1.8V power
@@ -229,9 +221,14 @@ module rvj1_caravel_soc #(
                                 .ram_csb0    (iram_csb0),
                                 .ram_web0    (iram_web0),
                                 .ram_wmask0  (iram_wmask0),
-                                .ram_addr0   (iram_addr0),
+                                .ram_addr0   (iram_addr0_internal),
                                 .ram_din0    (iram_din0),
                                 .ram_dout0   (iram_dout0));
+
+	assign iram_csb0_A = !(!iram_csb0 & (!iram_addr0_internal[IRAM_ADDR_WIDTH_WORDS-1]));
+	assign iram_csb0_B = !(!iram_csb0 & iram_addr0_internal[IRAM_ADDR_WIDTH_WORDS-1]);
+	assign iram_dout0  = iram_addr0_internal[IRAM_ADDR_WIDTH_WORDS-1] ? iram_dout0_B : iram_dout0_A;
+	assign iram_addr0  = iram_addr0_internal[IRAM_ADDR_WIDTH_WORDS_PER_MACRO-1:0];
 
     jedro_1_top #(.JEDRO_1_BOOT_ADDR(32'h3000_0000)) jedro_1_inst (.clk_i        (wb_clk_i),
                                                                    .rstn_i       (jedro_1_rstn),
