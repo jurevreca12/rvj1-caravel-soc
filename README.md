@@ -1,6 +1,6 @@
 # rvj1\_caravel\_soc 
 
-This repository contains a very simple SoC using the riscv-jedro-1 processor design. \
+This repository contains a very simple SoC using the riscv-jedro-1 processor design. 
 
 Logic analyzer pins: \
 	0       INPUT  jedro_1_rstn (reset bar of the user logic) \
@@ -9,6 +9,6 @@ Logic analyzer pins: \
 	35-67   OUTPUT cpu2imux_addr \
 	68-100  OUTPUT cpu2imux_rdata \
 	100-124 OUTPUT gpio_out \
-	124-127 OUTPUT constant zero \
+	124-127 OUTPUT constant zero 
 
 ![SoC block diagram](docs/rvj1_caravel_soc.png)
