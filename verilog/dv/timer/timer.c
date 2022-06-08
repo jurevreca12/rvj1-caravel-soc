@@ -65,7 +65,7 @@ void main()
 
 	reg_la0_oenb = reg_la0_iena = 0xFFFFFFFF;    // [31:0]                                                              
     reg_la1_oenb = reg_la1_iena = 0xFFFFFFFF;    // [63:32]                                                             
-	reg_la2_oenb = reg_la2_iena = 0x00000000;    // [95:64]
+	reg_la2_oenb = reg_la2_iena = 0xFFFFFFFF;    // [95:64]
     reg_la3_oenb = reg_la3_iena = 0xFFFFFFFF;    // [127:96]                                                            
 
     // Flag start of the test

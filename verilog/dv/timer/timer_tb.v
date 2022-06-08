@@ -47,14 +47,14 @@ module timer_tb;
 
 	initial begin
 		$display("Monitor: GPIo basic WB Started");
-		wait(uut.mprj.rvj1_soc.timer_inst.time_ff == 32'h0);
-		wait(uut.mprj.rvj1_soc.timer_inst.time_ff == 32'h15);
-		wait(uut.mprj.rvj1_soc.timer_inst.time_ff == 32'h0);
-		wait(uut.mprj.rvj1_soc.timer_inst.time_ff == 32'h15);
-		wait(uut.mprj.rvj1_soc.timer_inst.time_ff == 32'h0);
-		wait(uut.mprj.rvj1_soc.timer_inst.time_ff == 32'h15);
-		wait(uut.mprj.rvj1_soc.timer_inst.time_ff == 32'h0);
-		wait(uut.mprj.rvj1_soc.timer_inst.time_ff == 32'h15);
+		wait(uut.mprj.la_data_out[33:2] == 32'h0);
+		wait(uut.mprj.la_data_out[33:2] == 32'h15);
+		wait(uut.mprj.la_data_out[33:2] == 32'h0);
+		wait(uut.mprj.la_data_out[33:2] == 32'h15);
+		wait(uut.mprj.la_data_out[33:2] == 32'h0);
+		wait(uut.mprj.la_data_out[33:2] == 32'h15);
+		wait(uut.mprj.la_data_out[33:2] == 32'h0);
+		wait(uut.mprj.la_data_out[33:2] == 32'h15);
 		repeat (400) @(posedge clock);
 		`ifdef GL
 	    	$display("Monitor: timer basic WB (GL) PASSED------------------------------");

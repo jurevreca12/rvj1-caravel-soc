@@ -30,7 +30,9 @@ module	timer #(
 		input	wire [31:0]	wbs_dat_i,
 		input	wire [3:0]	wbs_sel_i,
 		output	reg		    wbs_ack_o,
-		output	reg [31:0]	wbs_dat_o	
+		output	reg  [31:0]	wbs_dat_o,
+
+		output  wire [31:0] time_debug_o	
 	);
     localparam ADDR_WIDTH = 1;
 	localparam ADDR_LO_MASK = (1 << ADDR_WIDTH) - 1;
@@ -72,4 +74,6 @@ module	timer #(
 			end
 		end
 	end
+
+	assign time_debug_o = time_ff;
 endmodule

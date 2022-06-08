@@ -143,9 +143,11 @@ module rvj1_caravel_soc #(
 	wire         wb_rvj1_timer_ack;
 	wire [31:0]  wb_rvj1_timer_dat_tocpu;
 
+	wire [31:0] time_debug;
+
 	assign jedro_1_rstn = la_data_in[1];
 	assign sel_wb = la_data_in[0];
-	assign la_data_out = 128'b0;
+	assign la_data_out = {5'b0, gpio_out, cpu2imux_rdata, cpu2imux_addr, time_debug, 2'b0};
 	assign user_irq = 3'b000;
 
     wishbone_mux #(.BASE_ADDR_0(IRAM_BASE_ADDR),
@@ -375,7 +377,9 @@ module rvj1_caravel_soc #(
 						.wbs_dat_i (wb_rvj1_timer_dat_fromcpu),
 					    .wbs_sel_i (wb_rvj1_timer_sel),
 					    .wbs_ack_o (wb_rvj1_timer_ack),
-						.wbs_dat_o (wb_rvj1_timer_dat_tocpu));
+						.wbs_dat_o (wb_rvj1_timer_dat_tocpu),
+						
+						.time_debug_o (time_debug));
 	
 
 endmodule
