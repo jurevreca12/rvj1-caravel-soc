@@ -143,7 +143,8 @@ module user_project_wrapper (user_clock2,
  wire \iram_addr0[7] ;
  wire \iram_addr0[8] ;
  wire iram_clk0;
- wire iram_csb0;
+ wire iram_csb0_A;
+ wire iram_csb0_B;
  wire \iram_din0[0] ;
  wire \iram_din0[10] ;
  wire \iram_din0[11] ;
@@ -176,38 +177,70 @@ module user_project_wrapper (user_clock2,
  wire \iram_din0[7] ;
  wire \iram_din0[8] ;
  wire \iram_din0[9] ;
- wire \iram_dout0[0] ;
- wire \iram_dout0[10] ;
- wire \iram_dout0[11] ;
- wire \iram_dout0[12] ;
- wire \iram_dout0[13] ;
- wire \iram_dout0[14] ;
- wire \iram_dout0[15] ;
- wire \iram_dout0[16] ;
- wire \iram_dout0[17] ;
- wire \iram_dout0[18] ;
- wire \iram_dout0[19] ;
- wire \iram_dout0[1] ;
- wire \iram_dout0[20] ;
- wire \iram_dout0[21] ;
- wire \iram_dout0[22] ;
- wire \iram_dout0[23] ;
- wire \iram_dout0[24] ;
- wire \iram_dout0[25] ;
- wire \iram_dout0[26] ;
- wire \iram_dout0[27] ;
- wire \iram_dout0[28] ;
- wire \iram_dout0[29] ;
- wire \iram_dout0[2] ;
- wire \iram_dout0[30] ;
- wire \iram_dout0[31] ;
- wire \iram_dout0[3] ;
- wire \iram_dout0[4] ;
- wire \iram_dout0[5] ;
- wire \iram_dout0[6] ;
- wire \iram_dout0[7] ;
- wire \iram_dout0[8] ;
- wire \iram_dout0[9] ;
+ wire \iram_dout0_A[0] ;
+ wire \iram_dout0_A[10] ;
+ wire \iram_dout0_A[11] ;
+ wire \iram_dout0_A[12] ;
+ wire \iram_dout0_A[13] ;
+ wire \iram_dout0_A[14] ;
+ wire \iram_dout0_A[15] ;
+ wire \iram_dout0_A[16] ;
+ wire \iram_dout0_A[17] ;
+ wire \iram_dout0_A[18] ;
+ wire \iram_dout0_A[19] ;
+ wire \iram_dout0_A[1] ;
+ wire \iram_dout0_A[20] ;
+ wire \iram_dout0_A[21] ;
+ wire \iram_dout0_A[22] ;
+ wire \iram_dout0_A[23] ;
+ wire \iram_dout0_A[24] ;
+ wire \iram_dout0_A[25] ;
+ wire \iram_dout0_A[26] ;
+ wire \iram_dout0_A[27] ;
+ wire \iram_dout0_A[28] ;
+ wire \iram_dout0_A[29] ;
+ wire \iram_dout0_A[2] ;
+ wire \iram_dout0_A[30] ;
+ wire \iram_dout0_A[31] ;
+ wire \iram_dout0_A[3] ;
+ wire \iram_dout0_A[4] ;
+ wire \iram_dout0_A[5] ;
+ wire \iram_dout0_A[6] ;
+ wire \iram_dout0_A[7] ;
+ wire \iram_dout0_A[8] ;
+ wire \iram_dout0_A[9] ;
+ wire \iram_dout0_B[0] ;
+ wire \iram_dout0_B[10] ;
+ wire \iram_dout0_B[11] ;
+ wire \iram_dout0_B[12] ;
+ wire \iram_dout0_B[13] ;
+ wire \iram_dout0_B[14] ;
+ wire \iram_dout0_B[15] ;
+ wire \iram_dout0_B[16] ;
+ wire \iram_dout0_B[17] ;
+ wire \iram_dout0_B[18] ;
+ wire \iram_dout0_B[19] ;
+ wire \iram_dout0_B[1] ;
+ wire \iram_dout0_B[20] ;
+ wire \iram_dout0_B[21] ;
+ wire \iram_dout0_B[22] ;
+ wire \iram_dout0_B[23] ;
+ wire \iram_dout0_B[24] ;
+ wire \iram_dout0_B[25] ;
+ wire \iram_dout0_B[26] ;
+ wire \iram_dout0_B[27] ;
+ wire \iram_dout0_B[28] ;
+ wire \iram_dout0_B[29] ;
+ wire \iram_dout0_B[2] ;
+ wire \iram_dout0_B[30] ;
+ wire \iram_dout0_B[31] ;
+ wire \iram_dout0_B[3] ;
+ wire \iram_dout0_B[4] ;
+ wire \iram_dout0_B[5] ;
+ wire \iram_dout0_B[6] ;
+ wire \iram_dout0_B[7] ;
+ wire \iram_dout0_B[8] ;
+ wire \iram_dout0_B[9] ;
  wire iram_web0;
  wire \iram_wmask0[0] ;
  wire \iram_wmask0[1] ;
@@ -337,7 +370,7 @@ module user_project_wrapper (user_clock2,
     \dram_wmask0[2] ,
     \dram_wmask0[1] ,
     \dram_wmask0[0] }));
- sky130_sram_2kbyte_1rw1r_32x512_8 iram_inst (.csb0(iram_csb0),
+ sky130_sram_2kbyte_1rw1r_32x512_8 iram_inst_A (.csb0(iram_csb0_A),
     .web0(iram_web0),
     .clk0(iram_clk0),
     .vccd1(vccd1),
@@ -392,38 +425,38 @@ module user_project_wrapper (user_clock2,
     \iram_din0[2] ,
     \iram_din0[1] ,
     \iram_din0[0] }),
-    .dout0({\iram_dout0[31] ,
-    \iram_dout0[30] ,
-    \iram_dout0[29] ,
-    \iram_dout0[28] ,
-    \iram_dout0[27] ,
-    \iram_dout0[26] ,
-    \iram_dout0[25] ,
-    \iram_dout0[24] ,
-    \iram_dout0[23] ,
-    \iram_dout0[22] ,
-    \iram_dout0[21] ,
-    \iram_dout0[20] ,
-    \iram_dout0[19] ,
-    \iram_dout0[18] ,
-    \iram_dout0[17] ,
-    \iram_dout0[16] ,
-    \iram_dout0[15] ,
-    \iram_dout0[14] ,
-    \iram_dout0[13] ,
-    \iram_dout0[12] ,
-    \iram_dout0[11] ,
-    \iram_dout0[10] ,
-    \iram_dout0[9] ,
-    \iram_dout0[8] ,
-    \iram_dout0[7] ,
-    \iram_dout0[6] ,
-    \iram_dout0[5] ,
-    \iram_dout0[4] ,
-    \iram_dout0[3] ,
-    \iram_dout0[2] ,
-    \iram_dout0[1] ,
-    \iram_dout0[0] }),
+    .dout0({\iram_dout0_A[31] ,
+    \iram_dout0_A[30] ,
+    \iram_dout0_A[29] ,
+    \iram_dout0_A[28] ,
+    \iram_dout0_A[27] ,
+    \iram_dout0_A[26] ,
+    \iram_dout0_A[25] ,
+    \iram_dout0_A[24] ,
+    \iram_dout0_A[23] ,
+    \iram_dout0_A[22] ,
+    \iram_dout0_A[21] ,
+    \iram_dout0_A[20] ,
+    \iram_dout0_A[19] ,
+    \iram_dout0_A[18] ,
+    \iram_dout0_A[17] ,
+    \iram_dout0_A[16] ,
+    \iram_dout0_A[15] ,
+    \iram_dout0_A[14] ,
+    \iram_dout0_A[13] ,
+    \iram_dout0_A[12] ,
+    \iram_dout0_A[11] ,
+    \iram_dout0_A[10] ,
+    \iram_dout0_A[9] ,
+    \iram_dout0_A[8] ,
+    \iram_dout0_A[7] ,
+    \iram_dout0_A[6] ,
+    \iram_dout0_A[5] ,
+    \iram_dout0_A[4] ,
+    \iram_dout0_A[3] ,
+    \iram_dout0_A[2] ,
+    \iram_dout0_A[1] ,
+    \iram_dout0_A[0] }),
     .dout1({_NC51,
     _NC52,
     _NC53,
@@ -460,11 +493,135 @@ module user_project_wrapper (user_clock2,
     \iram_wmask0[2] ,
     \iram_wmask0[1] ,
     \iram_wmask0[0] }));
+ sky130_sram_2kbyte_1rw1r_32x512_8 iram_inst_B (.csb0(iram_csb0_B),
+    .web0(iram_web0),
+    .clk0(iram_clk0),
+    .vccd1(vccd1),
+    .vssd1(vssd1),
+    .addr0({\iram_addr0[8] ,
+    \iram_addr0[7] ,
+    \iram_addr0[6] ,
+    \iram_addr0[5] ,
+    \iram_addr0[4] ,
+    \iram_addr0[3] ,
+    \iram_addr0[2] ,
+    \iram_addr0[1] ,
+    \iram_addr0[0] }),
+    .addr1({_NC83,
+    _NC84,
+    _NC85,
+    _NC86,
+    _NC87,
+    _NC88,
+    _NC89,
+    _NC90,
+    _NC91}),
+    .din0({\iram_din0[31] ,
+    \iram_din0[30] ,
+    \iram_din0[29] ,
+    \iram_din0[28] ,
+    \iram_din0[27] ,
+    \iram_din0[26] ,
+    \iram_din0[25] ,
+    \iram_din0[24] ,
+    \iram_din0[23] ,
+    \iram_din0[22] ,
+    \iram_din0[21] ,
+    \iram_din0[20] ,
+    \iram_din0[19] ,
+    \iram_din0[18] ,
+    \iram_din0[17] ,
+    \iram_din0[16] ,
+    \iram_din0[15] ,
+    \iram_din0[14] ,
+    \iram_din0[13] ,
+    \iram_din0[12] ,
+    \iram_din0[11] ,
+    \iram_din0[10] ,
+    \iram_din0[9] ,
+    \iram_din0[8] ,
+    \iram_din0[7] ,
+    \iram_din0[6] ,
+    \iram_din0[5] ,
+    \iram_din0[4] ,
+    \iram_din0[3] ,
+    \iram_din0[2] ,
+    \iram_din0[1] ,
+    \iram_din0[0] }),
+    .dout0({\iram_dout0_B[31] ,
+    \iram_dout0_B[30] ,
+    \iram_dout0_B[29] ,
+    \iram_dout0_B[28] ,
+    \iram_dout0_B[27] ,
+    \iram_dout0_B[26] ,
+    \iram_dout0_B[25] ,
+    \iram_dout0_B[24] ,
+    \iram_dout0_B[23] ,
+    \iram_dout0_B[22] ,
+    \iram_dout0_B[21] ,
+    \iram_dout0_B[20] ,
+    \iram_dout0_B[19] ,
+    \iram_dout0_B[18] ,
+    \iram_dout0_B[17] ,
+    \iram_dout0_B[16] ,
+    \iram_dout0_B[15] ,
+    \iram_dout0_B[14] ,
+    \iram_dout0_B[13] ,
+    \iram_dout0_B[12] ,
+    \iram_dout0_B[11] ,
+    \iram_dout0_B[10] ,
+    \iram_dout0_B[9] ,
+    \iram_dout0_B[8] ,
+    \iram_dout0_B[7] ,
+    \iram_dout0_B[6] ,
+    \iram_dout0_B[5] ,
+    \iram_dout0_B[4] ,
+    \iram_dout0_B[3] ,
+    \iram_dout0_B[2] ,
+    \iram_dout0_B[1] ,
+    \iram_dout0_B[0] }),
+    .dout1({_NC92,
+    _NC93,
+    _NC94,
+    _NC95,
+    _NC96,
+    _NC97,
+    _NC98,
+    _NC99,
+    _NC100,
+    _NC101,
+    _NC102,
+    _NC103,
+    _NC104,
+    _NC105,
+    _NC106,
+    _NC107,
+    _NC108,
+    _NC109,
+    _NC110,
+    _NC111,
+    _NC112,
+    _NC113,
+    _NC114,
+    _NC115,
+    _NC116,
+    _NC117,
+    _NC118,
+    _NC119,
+    _NC120,
+    _NC121,
+    _NC122,
+    _NC123}),
+    .wmask0({\iram_wmask0[3] ,
+    \iram_wmask0[2] ,
+    \iram_wmask0[1] ,
+    \iram_wmask0[0] }));
  rvj1_caravel_soc rvj1_soc (.dram_clk0(dram_clk0),
     .dram_csb0(dram_csb0),
     .dram_web0(dram_web0),
     .iram_clk0(iram_clk0),
-    .iram_csb0(iram_csb0),
+    .iram_csb0_A(iram_csb0_A),
+    .iram_csb0_B(iram_csb0_B),
     .iram_web0(iram_web0),
     .vccd1(vccd1),
     .vssd1(vssd1),
@@ -678,38 +835,70 @@ module user_project_wrapper (user_clock2,
     \iram_din0[2] ,
     \iram_din0[1] ,
     \iram_din0[0] }),
-    .iram_dout0({\iram_dout0[31] ,
-    \iram_dout0[30] ,
-    \iram_dout0[29] ,
-    \iram_dout0[28] ,
-    \iram_dout0[27] ,
-    \iram_dout0[26] ,
-    \iram_dout0[25] ,
-    \iram_dout0[24] ,
-    \iram_dout0[23] ,
-    \iram_dout0[22] ,
-    \iram_dout0[21] ,
-    \iram_dout0[20] ,
-    \iram_dout0[19] ,
-    \iram_dout0[18] ,
-    \iram_dout0[17] ,
-    \iram_dout0[16] ,
-    \iram_dout0[15] ,
-    \iram_dout0[14] ,
-    \iram_dout0[13] ,
-    \iram_dout0[12] ,
-    \iram_dout0[11] ,
-    \iram_dout0[10] ,
-    \iram_dout0[9] ,
-    \iram_dout0[8] ,
-    \iram_dout0[7] ,
-    \iram_dout0[6] ,
-    \iram_dout0[5] ,
-    \iram_dout0[4] ,
-    \iram_dout0[3] ,
-    \iram_dout0[2] ,
-    \iram_dout0[1] ,
-    \iram_dout0[0] }),
+    .iram_dout0_A({\iram_dout0_A[31] ,
+    \iram_dout0_A[30] ,
+    \iram_dout0_A[29] ,
+    \iram_dout0_A[28] ,
+    \iram_dout0_A[27] ,
+    \iram_dout0_A[26] ,
+    \iram_dout0_A[25] ,
+    \iram_dout0_A[24] ,
+    \iram_dout0_A[23] ,
+    \iram_dout0_A[22] ,
+    \iram_dout0_A[21] ,
+    \iram_dout0_A[20] ,
+    \iram_dout0_A[19] ,
+    \iram_dout0_A[18] ,
+    \iram_dout0_A[17] ,
+    \iram_dout0_A[16] ,
+    \iram_dout0_A[15] ,
+    \iram_dout0_A[14] ,
+    \iram_dout0_A[13] ,
+    \iram_dout0_A[12] ,
+    \iram_dout0_A[11] ,
+    \iram_dout0_A[10] ,
+    \iram_dout0_A[9] ,
+    \iram_dout0_A[8] ,
+    \iram_dout0_A[7] ,
+    \iram_dout0_A[6] ,
+    \iram_dout0_A[5] ,
+    \iram_dout0_A[4] ,
+    \iram_dout0_A[3] ,
+    \iram_dout0_A[2] ,
+    \iram_dout0_A[1] ,
+    \iram_dout0_A[0] }),
+    .iram_dout0_B({\iram_dout0_B[31] ,
+    \iram_dout0_B[30] ,
+    \iram_dout0_B[29] ,
+    \iram_dout0_B[28] ,
+    \iram_dout0_B[27] ,
+    \iram_dout0_B[26] ,
+    \iram_dout0_B[25] ,
+    \iram_dout0_B[24] ,
+    \iram_dout0_B[23] ,
+    \iram_dout0_B[22] ,
+    \iram_dout0_B[21] ,
+    \iram_dout0_B[20] ,
+    \iram_dout0_B[19] ,
+    \iram_dout0_B[18] ,
+    \iram_dout0_B[17] ,
+    \iram_dout0_B[16] ,
+    \iram_dout0_B[15] ,
+    \iram_dout0_B[14] ,
+    \iram_dout0_B[13] ,
+    \iram_dout0_B[12] ,
+    \iram_dout0_B[11] ,
+    \iram_dout0_B[10] ,
+    \iram_dout0_B[9] ,
+    \iram_dout0_B[8] ,
+    \iram_dout0_B[7] ,
+    \iram_dout0_B[6] ,
+    \iram_dout0_B[5] ,
+    \iram_dout0_B[4] ,
+    \iram_dout0_B[3] ,
+    \iram_dout0_B[2] ,
+    \iram_dout0_B[1] ,
+    \iram_dout0_B[0] }),
     .iram_wmask0({\iram_wmask0[3] ,
     \iram_wmask0[2] ,
     \iram_wmask0[1] ,

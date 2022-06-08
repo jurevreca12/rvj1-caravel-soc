@@ -59,17 +59,22 @@ set ::env(CLOCK_PERIOD) "10"
 # Internal Macros
 ## Macro PDN Connections
 set ::env(FP_PDN_MACRO_HOOKS) "\
-	iram_inst vccd1 vssd1, \
+	iram_inst_A vccd1 vssd1, \
+	iram_inst_B vccd1 vssd1, \
 	rvj1_soc vccd1 vssd1, \
 	dram_inst vccd1 vssd1"
 
 ### Macro Placement
 set ::env(MACRO_PLACEMENT_CFG) $script_dir/macro.cfg
 
-set ::env(GLB_RT_OBS)  "met1 1100  800  1783.1  1216.54, \
-                        met2 1100  800  1783.1  1216.54, \
-                        met3 1100  800  1783.1  1216.54, \
-                        met4 1100  800  1783.1  1216.54, \
+set ::env(GLB_RT_OBS)  "met1 500   800  1183.1  1216.54, \
+                        met2 500   800  1183.1  1216.54, \
+                        met3 500   800  1183.1  1216.54, \
+                        met4 500   800  1183.1  1216.54, \
+						met1 1500  800  2183.1  1216.54, \
+                        met2 1500  800  2183.1  1216.54, \
+                        met3 1500  800  2183.1  1216.54, \
+                        met4 1500  800  2183.1  1216.54, \
                         met1 1100  2400 1783.1  2816.54, \
                         met2 1100  2400 1783.1  2816.54, \
                         met3 1100  2400 1783.1  2816.54, \
